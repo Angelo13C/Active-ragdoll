@@ -19,7 +19,7 @@ public class InputMoverAuthoring : MonoBehaviour
 				RightKey = authoring._rightKey,
 				LeftKey = authoring._leftKey,
 			};
-			AddComponent(inputMover);
+			AddComponent(GetEntity(TransformUsageFlags.Dynamic), inputMover);
 		}
 	}
 }

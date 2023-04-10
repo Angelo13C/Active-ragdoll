@@ -35,8 +35,9 @@ public class SineIKTargetAuthoring : MonoBehaviour
         public override void Bake(SineIKTargetAuthoring authoring)
         {
             var sineIKTarget = authoring.Bake();
-            AddComponent(sineIKTarget);
-            SetComponentEnabled<SineIKTarget>(GetEntity(authoring), authoring._enabled);
+            var entity = GetEntity(TransformUsageFlags.Dynamic);
+            AddComponent(entity, sineIKTarget);
+            SetComponentEnabled<SineIKTarget>(entity, authoring._enabled);
         }
     }
 

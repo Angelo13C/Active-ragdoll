@@ -8,7 +8,7 @@ public class IKBalancerAuthoring : MonoBehaviour
     {
         public override void Bake(IKBalancerAuthoring authoring)
         {
-            AddComponent<IKBalancer>();
+            AddComponent<IKBalancer>(GetEntity(TransformUsageFlags.Dynamic));
         }
     }
 }

@@ -21,8 +21,9 @@ public class BalancerAuthoring : MonoBehaviour
                 Force = authoring._force
             };
 
-            AddComponent(balancer);
-            SetComponentEnabled<Balancer>(GetEntity(authoring), authoring._enabled);
+            var entity = GetEntity(TransformUsageFlags.Dynamic);
+            AddComponent(entity, balancer);
+            SetComponentEnabled<Balancer>(entity, authoring._enabled);
         }
     }
 

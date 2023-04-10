@@ -9,10 +9,11 @@ public class BalancerLegsControllerAuthoring : MonoBehaviour
     {
         public override void Bake(BalancerLegsControllerAuthoring authoring)
         {
-            var controlledLegs = AddBuffer<ControlledBalancerLeg>();
+            var controlledLegs = AddBuffer<ControlledBalancerLeg>(GetEntity(TransformUsageFlags.Dynamic));
             controlledLegs.ResizeUninitialized(authoring._legs.Length);
+            var transformUsageFlags = TransformUsageFlags.Dynamic;
             for (var i = 0; i < authoring._legs.Length; i++)
-                controlledLegs[i] = new ControlledBalancerLeg { Leg = GetEntity(authoring._legs[i]) };
+                controlledLegs[i] = new ControlledBalancerLeg { Leg = GetEntity(authoring._legs[i], transformUsageFlags) };
         }
     }
 }

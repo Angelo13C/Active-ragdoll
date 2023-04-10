@@ -1,14 +1,13 @@
 {
   "dependencies": {
     "com.gasgiant.camera-shake": "https://github.com/gasgiant/Camera-Shake.git#upm",
-    "com.havok.physics": "1.0.0-pre.44",
-    "com.unity.charactercontroller": "1.0.0-exp.2",
+    "com.havok.physics": "1.0.0-pre.65",
     "com.unity.cinemachine": "2.9.5",
     "com.unity.collab-proxy": "2.0.1",
-    "com.unity.entities.graphics": "1.0.0-pre.44",
+    "com.unity.entities.graphics": "1.0.0-pre.65",
     "com.unity.ide.rider": "3.0.18",
     "com.unity.ide.vscode": "1.2.5",
-    "com.unity.inputsystem": "1.5.0",
+    "com.unity.inputsystem": "1.5.1",
     "com.unity.physics": "1.0.0-pre.44",
     "com.unity.render-pipelines.universal": "14.0.6",
     "com.unity.test-framework": "1.1.33",

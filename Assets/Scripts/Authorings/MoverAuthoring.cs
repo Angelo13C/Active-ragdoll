@@ -20,7 +20,7 @@ public class MoverAuthoring : MonoBehaviour
                 LocalMoveDirection = float2.zero
             };
 
-            AddComponent(mover);
+            AddComponent(GetEntity(TransformUsageFlags.Dynamic), mover);
         }
     }
 }

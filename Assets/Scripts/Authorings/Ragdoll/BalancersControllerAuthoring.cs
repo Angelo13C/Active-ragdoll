@@ -13,14 +13,15 @@ public class BalancersControllerAuthoring : MonoBehaviour
             {
                 YRotationOffset = authoring.transform.eulerAngles.y
             };
-            AddComponent(balancersController);
-            SetComponentEnabled<BalancersController>(GetEntity(authoring), authoring._enabled);
+            var entity = GetEntity(TransformUsageFlags.Dynamic);
+            AddComponent(entity, balancersController);
+            SetComponentEnabled<BalancersController>(entity, authoring._enabled);
 
             var childrenBalancers = GetComponentsInChildren<BalancerAuthoring>();
-            var controlledBalancers = AddBuffer<ControlledBalancer>();
+            var controlledBalancers = AddBuffer<ControlledBalancer>(GetEntity(TransformUsageFlags.Dynamic));
             controlledBalancers.ResizeUninitialized(childrenBalancers.Length);
             for (var i = 0; i < childrenBalancers.Length; i++)
-                controlledBalancers[i] = new ControlledBalancer { BalancerEntity = GetEntity(childrenBalancers[i]) };
+                controlledBalancers[i] = new ControlledBalancer { BalancerEntity = GetEntity(childrenBalancers[i], TransformUsageFlags.Dynamic) };
         }
     }
 }

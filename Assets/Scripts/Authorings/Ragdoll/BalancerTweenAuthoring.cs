@@ -24,8 +24,9 @@ public class BalancerTweenAuthoring : MonoBehaviour
                 Direction = authoring._reversed ? -1 : 1
             };
 
-            AddComponent(balancerTween);
-            SetComponentEnabled<BalancerTween>(GetEntity(authoring), authoring._enabled);
+            var entity = GetEntity(TransformUsageFlags.Dynamic);
+            AddComponent(entity, balancerTween);
+            SetComponentEnabled<BalancerTween>(entity, authoring._enabled);
         }
     }
 }

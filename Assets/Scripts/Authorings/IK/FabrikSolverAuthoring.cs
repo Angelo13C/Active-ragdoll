@@ -79,15 +79,17 @@ public class FabrikSolverAuthoring : MonoBehaviour
     {
         public override void Bake(FabrikSolverAuthoring authoring)
         {
+            var entity = GetEntity(TransformUsageFlags.Dynamic);
+            
             var ikSolver = new IKSolver
             {
                 Solver = new FabrikSolver(authoring._maxIterationsCount, authoring._maxErrorDistance),
                 Local = authoring._local,
             };
-            AddComponent(ikSolver);
+            AddComponent(entity, ikSolver);
 
             var bones = authoring.BakeBones(false, Allocator.Temp);
-            var bonesAndEntities = AddBuffer<IKBoneAndEntity>();
+            var bonesAndEntities = AddBuffer<IKBoneAndEntity>(entity);
             bonesAndEntities.ResizeUninitialized(bones.Length);
             for (var i = 0; i < bones.Length; i++)
             {
@@ -96,7 +98,7 @@ public class FabrikSolverAuthoring : MonoBehaviour
                 bonesAndEntities[i] = new IKBoneAndEntity
                 {
                     Bone = bones[i],
-                    Entity = GetEntity(authoring.transform.GetChild(childIndex))
+                    Entity = GetEntity(authoring.transform.GetChild(childIndex), TransformUsageFlags.Dynamic)
                 };
             }
         }

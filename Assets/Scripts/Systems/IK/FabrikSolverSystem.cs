@@ -17,7 +17,7 @@ public partial struct FabrikSolverSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var(ikSolver, bonesAndEntities, transform) in SystemAPI.Query<IKSolver, DynamicBuffer<IKBoneAndEntity>, WorldTransform>())
+        foreach (var(ikSolver, bonesAndEntities, transform) in SystemAPI.Query<IKSolver, DynamicBuffer<IKBoneAndEntity>, LocalToWorld>())
         {
             var bones = new NativeArray<FabrikBone>(bonesAndEntities.Length, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
             for (var i = 0; i < bones.Length; i++)
