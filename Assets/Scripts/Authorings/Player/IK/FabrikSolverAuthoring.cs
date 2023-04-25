@@ -85,6 +85,8 @@ public class FabrikSolverAuthoring : MonoBehaviour
             {
                 Solver = new FabrikSolver(authoring._maxIterationsCount, authoring._maxErrorDistance),
                 Local = authoring._local,
+                Target = authoring._target,
+                Pole = authoring._pole
             };
             AddComponent(entity, ikSolver);
 
