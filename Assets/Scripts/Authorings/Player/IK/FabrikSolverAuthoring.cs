@@ -95,12 +95,12 @@ public class FabrikSolverAuthoring : MonoBehaviour
             bonesAndEntities.ResizeUninitialized(bones.Length);
             for (var i = 0; i < bones.Length; i++)
             {
-                // Why the child index needs to be reversed???
-                var childIndex = bones.Length - 1 - i;
+                // Why the bone index needs to be reversed???
+                var boneIndex = bones.Length - 1 - i;
                 bonesAndEntities[i] = new IKBoneAndEntity
                 {
-                    Bone = bones[i],
-                    Entity = GetEntity(authoring.transform.GetChild(childIndex), TransformUsageFlags.Dynamic)
+                    Bone = bones[boneIndex],
+                    Entity = GetEntity(authoring.transform.GetChild(i), TransformUsageFlags.Dynamic)
                 };
             }
         }
