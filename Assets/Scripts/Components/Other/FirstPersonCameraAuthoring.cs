@@ -11,6 +11,9 @@ public class FirstPersonCameraAuthoring : MonoBehaviour
 	[SerializeField] private float _verticalSensitivity = 0.4f;
 	[SerializeField] private float2 _verticalLimits = new float2(-40, 40);
 	
+	// This is here to provide the ability to disable the first person camera view from the editor
+	private void OnEnable() { }
+
 	class Baker : Baker<FirstPersonCameraAuthoring>
 	{
 		public override void Bake(FirstPersonCameraAuthoring authoring)
