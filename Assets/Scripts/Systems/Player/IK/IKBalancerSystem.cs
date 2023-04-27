@@ -28,7 +28,7 @@ public partial struct IKBalancerSystem : ISystem
                 if (balancer.IsValid)
                 {
                     var yawAndPitch = math.degrees(ikBone.Bone.YawAndPitchInRadians());
-                    balancer.ValueRW.TargetAngle = new float3(-yawAndPitch.x, 0, yawAndPitch.y);
+                    balancer.ValueRW.TargetAngle = new float3(0, -yawAndPitch.x, yawAndPitch.y);
                 }
             }
         }
