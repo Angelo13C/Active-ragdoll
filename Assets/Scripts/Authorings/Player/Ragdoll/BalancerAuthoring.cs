@@ -14,10 +14,11 @@ public class BalancerAuthoring : MonoBehaviour
     {
         public override void Bake(BalancerAuthoring authoring)
         {
+            var parent = authoring.transform.parent;
             var balancer = new Balancer
             {
                 TargetAngle = authoring._targetAngle,
-                ParentRotation = authoring.transform.parent.eulerAngles,
+                ParentRotation = parent != null ? parent.eulerAngles : float3.zero,
                 Force = authoring._force
             };
 
