@@ -35,9 +35,9 @@ public class FabrikSolverAuthoring : MonoBehaviour
                 var biggestChildAxis = Vector3.zero;
                 if (childSize.x > childSize.y && childSize.x > childSize.z)
                     biggestChildAxis.x = 1;
-                else if (childSize.y > childSize.x && childSize.y > childSize.z)
+                else if (childSize.y >= childSize.x && childSize.y >= childSize.z)
                     biggestChildAxis.y = 1;
-                else if (childSize.z > childSize.x && childSize.z > childSize.y)
+                else
                     biggestChildAxis.z = 1;
                 var biggestAxisSize = Vector3.Dot(biggestChildAxis, childSize);
                 var direction = child.rotation * biggestChildAxis * Mathf.Sign(Vector3.Dot(biggestChildAxis, child.lossyScale));
