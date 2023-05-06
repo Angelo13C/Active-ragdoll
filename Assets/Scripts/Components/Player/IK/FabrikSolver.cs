@@ -123,11 +123,6 @@ public struct FabrikBone
     public float3 Start;
 
     public float3 End => Start + Direction * Length;
-
-    public float2 YawAndPitchInRadians()
-    {
-        return new float2(math.atan2(Direction.z, Direction.x), math.asin(-Direction.y));
-    }
 }
 
 public static class Extensions

@@ -22,11 +22,9 @@ public partial struct BalancerSystem : ISystem
         foreach (var(balancer, velocity, entity) in SystemAPI.Query<Balancer, RefRW<PhysicsVelocity>>().WithEntityAccess())
         {
             var rigidBodyIndex = physicsWorld.GetRigidBodyIndex(entity);
-            var position = physicsWorld.GetPosition(rigidBodyIndex);
-            var rotationAngles = balancer.TargetAngle + balancer.ParentRotation;
-            rotationAngles.y += balancer.OffsetTargetYAngle;
-            var rotation = math.normalizesafe(quaternion.EulerXYZ(math.radians(rotationAngles)));
-            var targetTransform = new RigidTransform(rotation, position);
+            var targetRotation = balancer.GetTargetRotationQuaternion();
+            var targetTransform = new RigidTransform(targetRotation, float3.zero);
+            
             physicsWorld.CalculateVelocityToTarget(rigidBodyIndex, targetTransform, deltaTime * balancer.Force, out var linearVelocity, out var angularVelocity);
             velocity.ValueRW.Angular = angularVelocity;
         }

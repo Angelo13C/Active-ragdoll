@@ -17,7 +17,7 @@ public partial struct BalancerLegsControllerSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var balancerLookup = SystemAPI.GetComponentLookup<Balancer>();
-        foreach (var(controlledLegs, mover) in SystemAPI.Query<DynamicBuffer<ControlledBalancerLeg>, Mover>())
+        foreach (var (controlledLegs, mover) in SystemAPI.Query<DynamicBuffer<ControlledBalancerLeg>, Mover>())
         {
             var shouldMove = mover.LocalMoveDirection.x != 0 || mover.LocalMoveDirection.y != 0;
             foreach (var controlledLeg in controlledLegs)
@@ -26,7 +26,11 @@ public partial struct BalancerLegsControllerSystem : ISystem
                 if (!shouldMove)
                 {
                     var legBalancer = balancerLookup.GetRefRW(controlledLeg.Leg, false);
-                    legBalancer.ValueRW.TargetAngle = float3.zero;
+                    legBalancer.ValueRW.TargetAngle = new PolarCoordinates
+                    {
+                        Yaw = 0,
+                        Pitch = 0
+                    };
                 }
             }
         }

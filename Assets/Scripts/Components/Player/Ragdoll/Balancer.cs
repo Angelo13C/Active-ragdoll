@@ -3,9 +3,15 @@ using Unity.Mathematics;
 
 public struct Balancer : IComponentData, IEnableableComponent
 {
-    public float3 TargetAngle;
+    public PolarCoordinates TargetAngle;
     public float Force;
-    //I might remove this parent rotation?
-    public float3 ParentRotation;
+    // This is in degrees
     public float OffsetTargetYAngle;
+    
+    public quaternion GetTargetRotationQuaternion()
+    {
+        var targetAngle = TargetAngle;
+        targetAngle.Yaw += math.radians(OffsetTargetYAngle);
+        return targetAngle.ToQuaternion();
+    }
 }

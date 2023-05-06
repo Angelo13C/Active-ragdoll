@@ -3,7 +3,6 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 [BurstCompile]
 public partial struct FabrikSolverSystem : ISystem
@@ -12,7 +11,7 @@ public partial struct FabrikSolverSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var localToWorldLookup = SystemAPI.GetComponentLookup<LocalToWorld>(true);
-        foreach (var (ikSolver, bonesAndEntities, parent) in SystemAPI.Query<IKSolver, DynamicBuffer<IKBoneAndEntity>, Parent>())
+        foreach (var (ikSolver, bonesAndEntities) in SystemAPI.Query<IKSolver, DynamicBuffer<IKBoneAndEntity>>())
         {
             if (bonesAndEntities.Length > 0)
             {

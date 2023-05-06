@@ -1,4 +1,4 @@
-using System;
+using System.Diagnostics;
 using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -7,18 +7,20 @@ public class BalancerAuthoring : MonoBehaviour
 {
     [SerializeField] private bool _enabled = true;
 
-    [SerializeField] private float3 _targetAngle;
+    [SerializeField] private PolarCoordinates _targetAngle;
     [SerializeField] private float _force;
 
     class Baker : Baker<BalancerAuthoring>
     {
         public override void Bake(BalancerAuthoring authoring)
         {
-            var parent = authoring.transform.parent;
             var balancer = new Balancer
             {
-                TargetAngle = authoring._targetAngle,
-                ParentRotation = parent != null ? parent.eulerAngles : float3.zero,
+                TargetAngle = new PolarCoordinates
+                {
+                    Yaw = math.radians(authoring._targetAngle.Yaw),
+                    Pitch = math.radians(authoring._targetAngle.Pitch)
+                },
                 Force = authoring._force
             };
 
@@ -27,12 +29,13 @@ public class BalancerAuthoring : MonoBehaviour
             SetComponentEnabled<Balancer>(entity, authoring._enabled);
         }
     }
-
+    
+    [Conditional("UNITY_EDITOR")]
     private void OnDrawGizmos()
     {
         var length = GetComponent<MeshFilter>().sharedMesh.bounds.size.y * transform.lossyScale.y;
-        var offset = Quaternion.Euler(_targetAngle) * new Vector3(0, length / 2f, 0);
-        Gizmos.color = Color.yellow;
+        var offset = (Quaternion) _targetAngle.ToQuaternion() * (Vector3.right * length / 2);
+        Gizmos.color = new Color32(150, 75, 0, 255);
         Gizmos.DrawLine(transform.position + offset, transform.position - offset);
     }
 }
