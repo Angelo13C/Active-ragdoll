@@ -5,14 +5,6 @@ using Unity.Entities;
 [UpdateAfter(typeof(FabrikSolverSystem))]
 public partial struct IKBalancerSystem : ISystem
 {
-    public void OnCreate(ref SystemState state)
-    {
-    }
-
-    public void OnDestroy(ref SystemState state)
-    {
-    }
-
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {

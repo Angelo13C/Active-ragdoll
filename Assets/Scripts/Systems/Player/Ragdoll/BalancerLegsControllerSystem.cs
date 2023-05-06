@@ -1,18 +1,9 @@
 using Unity.Burst;
 using Unity.Entities;
-using Unity.Mathematics;
 
 [BurstCompile]
 public partial struct BalancerLegsControllerSystem : ISystem
 {
-    public void OnCreate(ref SystemState state)
-    {
-    }
-
-    public void OnDestroy(ref SystemState state)
-    {
-    }
-
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {

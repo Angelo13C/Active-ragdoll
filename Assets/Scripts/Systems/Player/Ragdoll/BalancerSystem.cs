@@ -7,14 +7,6 @@ using Unity.Physics.Systems;
 [UpdateInGroup(typeof(AfterPhysicsSystemGroup))]
 public partial struct BalancerSystem : ISystem
 {
-    public void OnCreate(ref SystemState state)
-    {
-    }
-
-    public void OnDestroy(ref SystemState state)
-    {
-    }
-
     public void OnUpdate(ref SystemState state)
     {
         var deltaTime = SystemAPI.Time.DeltaTime;
