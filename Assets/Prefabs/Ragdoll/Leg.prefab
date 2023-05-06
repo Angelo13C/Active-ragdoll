@@ -380,9 +380,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _targetAngle:
+  _initialRotation:
     x: 0
     y: 0
+    z: 0
+  _targetDirection:
+    x: 0
+    y: 1
     z: 0
   _force: 1200
 --- !u!114 &5696047471952509868
@@ -755,9 +759,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _targetAngle:
+  _initialRotation:
     x: 0
     y: 0
+    z: 0
+  _targetDirection:
+    x: 0
+    y: 1
     z: 0
   _force: 1200
 --- !u!114 &467422281827548338
