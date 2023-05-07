@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
+[UpdateInGroup(typeof(PresentationSystemGroup))]
 public partial class FirstPersonCameraSystem : SystemBase
 {
     protected override void OnUpdate()
