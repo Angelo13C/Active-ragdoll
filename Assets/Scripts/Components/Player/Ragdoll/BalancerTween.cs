@@ -3,8 +3,8 @@ using Unity.Mathematics;
 
 public struct BalancerTween : IComponentData, IEnableableComponent
 {
-    public float3 FromTargetAngle;
-    public float3 ToTargetAngle;
+    public PolarCoordinates FromTargetAngle;
+    public PolarCoordinates ToTargetAngle;
     public float CurrentTime;
     public float Duration;
     public float Direction;
@@ -24,6 +24,6 @@ public struct BalancerTween : IComponentData, IEnableableComponent
         }
     }
 
-    public float3 Sample() => math.lerp(FromTargetAngle, ToTargetAngle, CurrentTime / Duration);
+    public PolarCoordinates Sample() => math.lerp(FromTargetAngle, ToTargetAngle, CurrentTime / Duration);
     //Direction == -1 ? FromTargetAngle : ToTargetAngle;
 }

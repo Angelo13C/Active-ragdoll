@@ -410,14 +410,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _initialRotation:
-    x: 0
-    y: 0
-    z: 0
-  _targetDirection:
-    x: 1
-    y: 0
-    z: 0
+  _targetAngle:
+    Yaw: 0
+    Pitch: 0
+  _balanceAxisType: 1
   _force: 1300
 --- !u!1 &7809015562395213858
 GameObject:
@@ -765,12 +761,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _initialRotation:
-    x: 0
-    y: 0
-    z: 0
-  _targetDirection:
-    x: 1
-    y: 0
-    z: 0
+  _targetAngle:
+    Yaw: 0
+    Pitch: 0
+  _balanceAxisType: 1
   _force: 1300

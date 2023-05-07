@@ -586,8 +586,33 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
         type: 3}
+      propertyPath: _enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
       propertyPath: _reversed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _toTargetAngle.Yaw
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _fromTargetAngle.Yaw
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _toTargetAngle.Pitch
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _fromTargetAngle.Pitch
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 1006411276425052485, guid: aaf2e712b24ed19489c7c7cb8141581d,
         type: 3}
@@ -599,6 +624,11 @@ PrefabInstance:
       propertyPath: ConnectedBody
       value: 
       objectReference: {fileID: 3469287837641839789}
+    - target: {fileID: 1540513588014188320, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: MaxTwistAngle
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 1540513588014188320, guid: aaf2e712b24ed19489c7c7cb8141581d,
         type: 3}
       propertyPath: PositionInConnectedEntity.x
@@ -659,10 +689,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3152629254674459053, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _targetAngle.Yaw
+      value: -2.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152629254674459053, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _targetAngle.Pitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
         type: 3}
       propertyPath: _reversed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _toTargetAngle.Yaw
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _fromTargetAngle.Yaw
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _toTargetAngle.Pitch
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _fromTargetAngle.Pitch
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297869044415839561, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _targetAngle.Yaw
+      value: -2.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297869044415839561, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _targetAngle.Pitch
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1184,6 +1259,7 @@ MonoBehaviour:
   _targetAngle:
     Yaw: 0
     Pitch: 0
+  _balanceAxisType: 1
   _force: 700
 --- !u!114 &3469287837641839792
 MonoBehaviour:
@@ -1528,6 +1604,7 @@ MonoBehaviour:
   _targetAngle:
     Yaw: 0
     Pitch: 0
+  _balanceAxisType: 1
   _force: 300
 --- !u!114 &3469287837876708455
 MonoBehaviour:
@@ -1799,6 +1876,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 107383636}
     m_Modifications:
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _toTargetAngle.Yaw
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _fromTargetAngle.Yaw
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _toTargetAngle.Pitch
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 467422281827548338, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _fromTargetAngle.Pitch
+      value: -60
+      objectReference: {fileID: 0}
     - target: {fileID: 1006411276425052485, guid: aaf2e712b24ed19489c7c7cb8141581d,
         type: 3}
       propertyPath: m_Name
@@ -1862,6 +1964,51 @@ PrefabInstance:
     - target: {fileID: 1585198631997064410, guid: aaf2e712b24ed19489c7c7cb8141581d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152629254674459053, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _targetAngle.Yaw
+      value: -2.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152629254674459053, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _targetAngle.Pitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _toTargetAngle.Yaw
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _fromTargetAngle.Yaw
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _toTargetAngle.Pitch
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5696047471952509868, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _fromTargetAngle.Pitch
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297869044415839561, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _targetAngle.Yaw
+      value: -2.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297869044415839561, guid: aaf2e712b24ed19489c7c7cb8141581d,
+        type: 3}
+      propertyPath: _targetAngle.Pitch
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

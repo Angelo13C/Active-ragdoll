@@ -174,7 +174,7 @@ MonoBehaviour:
     m_Friction:
       m_Override: 0
       m_Value:
-        Value: 0.5
+        Value: 0
         CombineMode: 0
     m_Restitution:
       m_Override: 0
@@ -380,14 +380,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _initialRotation:
-    x: 0
-    y: 0
-    z: 0
-  _targetDirection:
-    x: 0
-    y: 1
-    z: 0
+  _targetAngle:
+    Yaw: 0
+    Pitch: 0
+  _balanceAxisType: 0
   _force: 1200
 --- !u!114 &5696047471952509868
 MonoBehaviour:
@@ -403,13 +399,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _fromTargetAngle:
-    x: -50
-    y: 0
-    z: 0
+    Yaw: -30
+    Pitch: 5.72
   _toTargetAngle:
-    x: 60
-    y: 0
-    z: 0
+    Yaw: 30
+    Pitch: 0
   _duration: 0.25
   _reversed: 0
 --- !u!1 &8645112622309974648
@@ -553,7 +547,7 @@ MonoBehaviour:
     m_Friction:
       m_Override: 0
       m_Value:
-        Value: 0.5
+        Value: 0
         CombineMode: 0
     m_Restitution:
       m_Override: 0
@@ -759,14 +753,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enabled: 1
-  _initialRotation:
-    x: 0
-    y: 0
-    z: 0
-  _targetDirection:
-    x: 0
-    y: 1
-    z: 0
+  _targetAngle:
+    Yaw: 0
+    Pitch: 0
+  _balanceAxisType: 0
   _force: 1200
 --- !u!114 &467422281827548338
 MonoBehaviour:
@@ -782,12 +772,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _fromTargetAngle:
-    x: -50
-    y: 0
-    z: 4
+    Yaw: -30
+    Pitch: 5.72
   _toTargetAngle:
-    x: 60
-    y: 0
-    z: 4
+    Yaw: 30
+    Pitch: 0
   _duration: 0.25
   _reversed: 0

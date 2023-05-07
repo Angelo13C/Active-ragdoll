@@ -11,8 +11,7 @@ public partial struct BalancerTweenSystem : ISystem
         foreach (var(balancerTween, balancer) in SystemAPI.Query<RefRW<BalancerTween>, RefRW<Balancer>>())
         {
             balancerTween.ValueRW.Update(deltaTime);
-            //This is temporary
-            //balancer.ValueRW.TargetAngle = balancerTween.ValueRO.Sample();
+            balancer.ValueRW.TargetAngle = balancerTween.ValueRO.Sample();
         }
     }
 }
