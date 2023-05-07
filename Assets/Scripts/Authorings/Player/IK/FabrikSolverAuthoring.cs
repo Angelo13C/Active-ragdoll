@@ -121,8 +121,14 @@ public class FabrikSolverAuthoring : MonoBehaviour
         public void OnSceneGUI()
         {
             var authoring = target as FabrikSolverAuthoring;
+            
             authoring.Target = Handles.PositionHandle(authoring.GlobalTarget, Quaternion.identity) - authoring.GlobalOffset;
+            if (EditorGUI.EndChangeCheck())
+                Undo.RecordObject(authoring, "Change Target Position");
+            
             authoring._pole = Handles.PositionHandle(authoring.GlobalPole, Quaternion.identity) - authoring.GlobalOffset;
+            if (EditorGUI.EndChangeCheck())
+                Undo.RecordObject(authoring, "Change Pole Position");
         }
     }
 #endif
