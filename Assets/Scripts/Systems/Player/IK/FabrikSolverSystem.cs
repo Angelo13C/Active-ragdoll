@@ -1,33 +1,40 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Transforms;
 
 [BurstCompile]
 public partial struct FabrikSolverSystem : ISystem
 {
-    public void OnCreate(ref SystemState state)
-    {
-    }
-
-    public void OnDestroy(ref SystemState state)
-    {
-    }
-
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var(ikSolver, bonesAndEntities, transform) in SystemAPI.Query<IKSolver, DynamicBuffer<IKBoneAndEntity>, LocalToWorld>())
+        var localToWorldLookup = SystemAPI.GetComponentLookup<LocalToWorld>(true);
+        foreach (var (ikSolver, bonesAndEntities) in SystemAPI.Query<IKSolver, DynamicBuffer<IKBoneAndEntity>>())
         {
-            var bones = new NativeArray<FabrikBone>(bonesAndEntities.Length, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
-            for (var i = 0; i < bones.Length; i++)
-                bones[i] = bonesAndEntities[i].Bone;
+            if (bonesAndEntities.Length > 0)
+            {
+                var bones = new NativeArray<FabrikBone>(bonesAndEntities.Length, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
+                
+                for (var i = 0; i < bones.Length; i++)
+                {
+                    var bone = bonesAndEntities[i].Bone;
+                    if (localToWorldLookup.TryGetComponent(bonesAndEntities[i].Entity, out var boneTransform))
+                    {
+                        bone.Direction = math.mul(boneTransform.Rotation, bonesAndEntities[i].InitialDirection);
+                        bone.Start = boneTransform.Position - bone.Direction * bone.Length / 2;
+                    }
 
-            ikSolver.Solve(bones, transform.Position);
-            for (var i = 0; i < bones.Length; i++)
-                bonesAndEntities.ElementAt(i).Bone = bones[i];
+                    bones[i] = bone;
+                }
 
-            bones.Dispose();
+                ikSolver.Solve(bones);
+                for (var i = 0; i < bones.Length; i++)
+                    bonesAndEntities.ElementAt(i).Bone = bones[i];
+
+                bones.Dispose();
+            }
         }
     }
 }

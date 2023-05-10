@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
+[UpdateInGroup(typeof(PresentationSystemGroup))]
 public partial class FirstPersonCameraSystem : SystemBase
 {
     protected override void OnUpdate()
@@ -31,7 +32,7 @@ public partial class FirstPersonCameraSystem : SystemBase
                         firstPersonCamera.CurrentVerticalRotation = math.clamp(firstPersonCamera.CurrentVerticalRotation + deltaVerticalRotation,
                             firstPersonCamera.VerticalRotationLimits.x, firstPersonCamera.VerticalRotationLimits.y);
                         
-                        var rotation = quaternion.EulerXYZ(firstPersonCamera.CurrentVerticalRotation, math.radians(balancersController.YRotationOffset), 0);
+                        var rotation = quaternion.EulerXYZ(firstPersonCamera.CurrentVerticalRotation, -math.radians(balancersController.YRotationOffset), 0);
                         firstPersonCamera.CameraTransform.rotation = rotation;
                     }
                 }

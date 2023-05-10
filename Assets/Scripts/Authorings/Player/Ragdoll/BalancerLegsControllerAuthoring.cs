@@ -13,7 +13,14 @@ public class BalancerLegsControllerAuthoring : MonoBehaviour
             controlledLegs.ResizeUninitialized(authoring._legs.Length);
             var transformUsageFlags = TransformUsageFlags.Dynamic;
             for (var i = 0; i < authoring._legs.Length; i++)
-                controlledLegs[i] = new ControlledBalancerLeg { Leg = GetEntity(authoring._legs[i], transformUsageFlags) };
+            {
+                controlledLegs[i] = new ControlledBalancerLeg
+                {
+                    Leg = GetEntity(authoring._legs[i], transformUsageFlags),
+                    CurrentMoveDirection = ControlledBalancerLeg.MoveDirection.Forward
+                };
+                
+            }
         }
     }
 }
