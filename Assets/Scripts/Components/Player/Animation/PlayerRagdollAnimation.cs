@@ -11,10 +11,8 @@ public struct PlayerRagdollAnimation
         for(var i = 0; i < KeyFrames.Length; i++)
         {
             if (KeyFrames[i].Time >= time)
-                time -= KeyFrames[i].Time;
-            else
             {
-                return KeyFrames[i];
+                return KeyFrames[math.max(i - 1, 0)];
             }
         }
 
