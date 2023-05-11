@@ -9,12 +9,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = " (Ragdoll Animation)", menuName = "Scriptable Objects/Ragdoll Animation")]
 public class PlayerRagdollAnimationSO : ScriptableObject
 {
+    [SerializeField] private bool _loop;
     public PlayerRagdollAnimation.KeyFrame[] KeyFrames;
 
     public BlobAssetReference<PlayerRagdollAnimation> ToBlob()
     {
         var builder = new BlobBuilder(Allocator.Temp);
         ref var animation = ref builder.ConstructRoot<PlayerRagdollAnimation>();
+
+        animation.Loop = _loop;
 
         var blobKeyFrames = builder.Allocate(ref animation.KeyFrames, KeyFrames.Length);
         for (var i = 0; i < blobKeyFrames.Length; i++)

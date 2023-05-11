@@ -4,10 +4,18 @@ using UnityEngine;
 
 public struct PlayerRagdollAnimation
 {
+    public bool Loop;
     public BlobArray<KeyFrame> KeyFrames;
 
     public KeyFrame? Sample(float time)
     {
+        if (Loop && KeyFrames.Length > 0)
+        {
+            var lastKeyFrame = KeyFrames[KeyFrames.Length - 1];
+            if(lastKeyFrame.Time != 0)
+                time %= lastKeyFrame.Time;
+        }
+        
         for(var i = 0; i < KeyFrames.Length; i++)
         {
             if (KeyFrames[i].Time >= time)
