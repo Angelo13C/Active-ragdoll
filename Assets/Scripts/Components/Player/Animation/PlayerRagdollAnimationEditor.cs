@@ -10,6 +10,9 @@ using UnityEngine;
 public class PlayerRagdollAnimationSO : ScriptableObject
 {
     [SerializeField] private bool _loop;
+#if UNITY_EDITOR
+    [SerializeField] [Min(0f)] private float _currentAnimationTimeDebug;
+#endif
     public PlayerRagdollAnimation.KeyFrame[] KeyFrames;
 
     public BlobAssetReference<PlayerRagdollAnimation> ToBlob()
@@ -37,6 +40,10 @@ public class PlayerRagdollAnimationSO : ScriptableObject
  
         private void OnSceneGUI(SceneView sv)
         {
+            var animationSO = (PlayerRagdollAnimationSO) target;
+            if (animationSO.KeyFrames == null)
+                return;
+            
             var randomRagdoll = FindObjectOfType<PlayerRagdollAnimationPlayerAuthoring>();
             var fabrikSolvers = randomRagdoll.GetComponentsInChildren<FabrikSolverAuthoring>();
             var leftArmOffset = float3.zero;
@@ -48,35 +55,35 @@ public class PlayerRagdollAnimationSO : ScriptableObject
                 else if(fabrikSolver.name.ToLower().Contains("right"))
                     rightArmOffset = fabrikSolver.GlobalOffset;
             }
-            
-            var animationSO = (PlayerRagdollAnimationSO) target;
-            for (var i = 0; i < animationSO.KeyFrames.Length; i++)
+
+            var animationBlob = animationSO.ToBlob();
+            var keyFrameNullable = animationBlob.Value.Sample(animationSO._currentAnimationTimeDebug, out var i);
+            if (!keyFrameNullable.HasValue)
+                return;
+            var keyFrame = keyFrameNullable.Value;
+
+            void DoHandle(ref float3 position, float3 offset, Color color, string undoRecordName)
             {
-                var keyFrame = animationSO.KeyFrames[i];
-
-                void DoHandle(ref float3 position, float3 offset, Color color, string undoRecordName)
-                {
-                    position = (float3) Handles.PositionHandle(position + offset, quaternion.identity) - offset;
-                    if (EditorGUI.EndChangeCheck())
-                        Undo.RecordObject(animationSO, "Change " + undoRecordName + " Position");
-                    Handles.color = color;
-                    Handles.DrawWireCube(position + offset, new float3(0.2f, 0.2f, 0.2f));
-                }
-
-                if (keyFrame.LeftArmKey.Override)
-                {
-                    DoHandle(ref keyFrame.LeftArmKey.IKTargetPosition, leftArmOffset, new Color(0, 1, 0), "Target");
-                    DoHandle(ref keyFrame.LeftArmKey.IKPolePosition, leftArmOffset, new Color(0.4f, 1, 0.4f), "Pole");
-                }
-
-                if (keyFrame.RightArmKey.Override)
-                {
-                    DoHandle(ref keyFrame.RightArmKey.IKTargetPosition, rightArmOffset, new Color(0, 0, 1), "Target");
-                    DoHandle(ref keyFrame.RightArmKey.IKPolePosition, rightArmOffset, new Color(0.4f, 0.4f, 1), "Pole");
-                }
-                
-                animationSO.KeyFrames[i] = keyFrame;
+                position = (float3) Handles.PositionHandle(position + offset, quaternion.identity) - offset;
+                if (EditorGUI.EndChangeCheck())
+                    Undo.RecordObject(animationSO, "Change " + undoRecordName + " Position");
+                Handles.color = color;
+                Handles.DrawWireCube(position + offset, new float3(0.2f, 0.2f, 0.2f));
             }
+
+            if (keyFrame.LeftArmKey.Override)
+            {
+                DoHandle(ref keyFrame.LeftArmKey.IKTargetPosition, leftArmOffset, new Color(0, 1, 0), "Target");
+                DoHandle(ref keyFrame.LeftArmKey.IKPolePosition, leftArmOffset, new Color(0.4f, 1, 0.4f), "Pole");
+            }
+
+            if (keyFrame.RightArmKey.Override)
+            {
+                DoHandle(ref keyFrame.RightArmKey.IKTargetPosition, rightArmOffset, new Color(0, 0, 1), "Target");
+                DoHandle(ref keyFrame.RightArmKey.IKPolePosition, rightArmOffset, new Color(0.4f, 0.4f, 1), "Pole");
+            }
+            
+            animationSO.KeyFrames[i] = keyFrame;
         }
     }
 

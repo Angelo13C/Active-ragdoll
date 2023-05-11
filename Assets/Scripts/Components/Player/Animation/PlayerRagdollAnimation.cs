@@ -7,7 +7,7 @@ public struct PlayerRagdollAnimation
     public bool Loop;
     public BlobArray<KeyFrame> KeyFrames;
 
-    public KeyFrame? Sample(float time)
+    public KeyFrame? Sample(float time, out int index)
     {
         if (Loop && KeyFrames.Length > 0)
         {
@@ -20,12 +20,16 @@ public struct PlayerRagdollAnimation
         {
             if (KeyFrames[i].Time >= time)
             {
-                return KeyFrames[math.max(i - 1, 0)];
+                index = math.max(i - 1, 0);
+                return KeyFrames[index];
             }
         }
 
+        index = -1;
         return null;
     }
+
+    public KeyFrame? Sample(float time) => Sample(time, out var _);
 
     [System.Serializable]
     public struct KeyFrame
