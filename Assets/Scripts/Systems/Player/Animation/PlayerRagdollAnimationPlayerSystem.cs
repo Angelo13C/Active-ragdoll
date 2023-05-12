@@ -34,6 +34,9 @@ public partial struct PlayerRagdollAnimationPlayerSystem : ISystem
                             rightArmIKSolver.ValueRW.Pole = keyFrame.Value.RightArmKey.IKPolePosition;
                         }
                     }
+                    
+                    if(playedAnimations[i].HasFinished())
+                        playedAnimations.RemoveAt(i);
                 }
             }
         }

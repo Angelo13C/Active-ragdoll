@@ -17,4 +17,13 @@ public struct PlayedAnimation : IBufferElementData
         ref var animation = ref Animation.Value;
         return animation.Sample(CurrentTime, out var _);
     }
+    
+    public bool HasFinished()
+    {
+        ref var animation = ref Animation.Value;
+        if (animation.Loop)
+            return false;
+        
+        return animation.KeyFrames.Length == 0 || CurrentTime > animation.KeyFrames[animation.KeyFrames.Length - 1].Time;
+    }
 }
