@@ -15,6 +15,6 @@ public struct PlayedAnimation : IBufferElementData
     public PlayerRagdollAnimation.KeyFrame? Sample()
     {
         ref var animation = ref Animation.Value;
-        return animation.Sample(CurrentTime);
+        return animation.Sample(CurrentTime, out var _);
     }
 }

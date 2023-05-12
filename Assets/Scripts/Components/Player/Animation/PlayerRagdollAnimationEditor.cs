@@ -57,7 +57,7 @@ public class PlayerRagdollAnimationSO : ScriptableObject
             }
 
             var animationBlob = animationSO.ToBlob();
-            var keyFrameNullable = animationBlob.Value.Sample(animationSO._currentAnimationTimeDebug, out var i);
+            var keyFrameNullable = animationBlob.Value.SampleUnlerped(animationSO._currentAnimationTimeDebug, out var i);
             if (!keyFrameNullable.HasValue)
                 return;
             var keyFrame = keyFrameNullable.Value;
