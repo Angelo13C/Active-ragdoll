@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64125748a054d55a7fae4c8d24549ce, type: 3}
+  m_Name: Guard (Ragdoll Animation)
+  m_EditorClassIdentifier: 
+  _loop: 1
+  _currentAnimationTimeDebug: 0
+  KeyFrames:
+  - Time: 0
+    RightArmKey:
+      Override: 1
+      IKTargetPosition:
+        x: -0.042037725
+        y: 0.15416431
+        z: 0.44480467
+      IKPolePosition:
+        x: 1.0081568
+        y: -2.1805453
+        z: -1.0108054
+    LeftArmKey:
+      Override: 1
+      IKTargetPosition:
+        x: -0.0028948784
+        y: 0.20893145
+        z: 0.50148916
+      IKPolePosition:
+        x: -1.089391
+        y: -1.7277074
+        z: -0.98180366
