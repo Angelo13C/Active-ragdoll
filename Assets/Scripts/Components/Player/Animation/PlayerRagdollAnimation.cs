@@ -16,6 +16,9 @@ public struct PlayerRagdollAnimation
                 time %= lastKeyFrame.Time;
         }
         
+        if (KeyFrames.Length == 1 && KeyFrames[0].Time <= time)
+            time = KeyFrames[0].Time;
+            
         for(var i = 0; i < KeyFrames.Length; i++)
         {
             if (KeyFrames[i].Time >= time)
@@ -39,6 +42,12 @@ public struct PlayerRagdollAnimation
     // This doesn't work fine for keyframes where arms are not overriden!
     public KeyFrame? Sample(float time, out int index)
     {
+        if (KeyFrames.Length == 1)
+        {
+            index = 0;
+            return KeyFrames[0];
+        }
+            
         SampleTimeAndPercentage(time, out index, out var percentage);
         if (index == -1)
             return null;
