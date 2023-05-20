@@ -9,9 +9,12 @@ public partial struct BalancerLegsControllerSystem : ISystem
     {
         var balancerLookup = SystemAPI.GetComponentLookup<Balancer>();
         var balancerTweenLookup = SystemAPI.GetComponentLookup<BalancerTween>();
-        foreach (var (controlledLegs, mover) in SystemAPI.Query<DynamicBuffer<ControlledBalancerLeg>, Mover>())
+        var stunnedLookup = SystemAPI.GetComponentLookup<Stunned>();
+        foreach (var (controlledLegs, mover, entity) in SystemAPI.Query<DynamicBuffer<ControlledBalancerLeg>, Mover>().WithEntityAccess())
         {
             var shouldMove = mover.LocalMoveDirection.x != 0 || mover.LocalMoveDirection.y != 0;
+            if (shouldMove)
+                shouldMove = !stunnedLookup.IsComponentEnabled(entity);
             for(var i = 0; i < controlledLegs.Length; i++)
             {
                 var controlledLeg = controlledLegs[i];

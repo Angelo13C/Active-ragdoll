@@ -12,7 +12,7 @@ public partial struct MoverSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var(mover, velocity, transform) in SystemAPI.Query<Mover, RefRW<PhysicsVelocity>, LocalToWorld>())
+        foreach (var(mover, velocity, transform) in SystemAPI.Query<Mover, RefRW<PhysicsVelocity>, LocalToWorld>().WithNone<Stunned>())
         {
             var moveDirection = new float3(mover.LocalMoveDirection.x, 0, mover.LocalMoveDirection.y);
             moveDirection = math.mul(transform.Rotation, moveDirection);

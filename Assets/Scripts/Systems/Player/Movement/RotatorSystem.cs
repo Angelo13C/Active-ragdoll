@@ -12,7 +12,7 @@ public partial struct RotatorSystem : ISystem
     {
         var deltaTime = SystemAPI.Time.DeltaTime;
         var balancersControllerLookup = SystemAPI.GetComponentLookup<BalancersController>();
-        foreach (var (rotator, velocity) in SystemAPI.Query<RefRW<Rotator>, RefRW<PhysicsVelocity>>())
+        foreach (var (rotator, velocity) in SystemAPI.Query<RefRW<Rotator>, RefRW<PhysicsVelocity>>().WithNone<Stunned>())
         {
             var yRotation = rotator.ValueRO.DeltaYRotation * rotator.ValueRO.Speed * deltaTime;
             velocity.ValueRW.Angular += new float3(0, yRotation, 0);
