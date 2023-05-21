@@ -4,6 +4,10 @@ using Deck = Unity.Entities.DynamicBuffer<CardInDeck>;
 public struct CardInDeck : IBufferElementData
 {
     public Entity CardPrefab;
+    // Number of times the card can still be used
+    public short LeftUseCount;
+
+    public const short INVALID_LEFT_USE_COUNT = short.MinValue;
 }
 
 public static class DeckExtensions
@@ -22,6 +26,21 @@ public static class DeckExtensions
         {
             CardPrefab = cardPrefab
         });
+    }
+    
+    public static (Entity, bool) UseCardAndEventuallyPutAtEnd(this Deck deck, int cardIndex)
+    {
+        if (deck.IsEmpty)
+            return (Entity.Null, false);
+
+        var usedCard = deck[cardIndex];
+        deck.ElementAt(cardIndex).LeftUseCount--;
+        if (deck[cardIndex].LeftUseCount == 0)
+        {
+            deck.ElementAt(cardIndex).LeftUseCount = CardInDeck.INVALID_LEFT_USE_COUNT;
+            PutCardAtEnd(deck, cardIndex);
+        }
+        return (usedCard.CardPrefab, usedCard.LeftUseCount == 1);
     }
     
     public static void PutCardAtEnd(this Deck deck, int cardIndex)

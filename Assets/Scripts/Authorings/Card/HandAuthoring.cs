@@ -9,11 +9,15 @@ public class HandAuthoring : MonoBehaviour
 	{
 		public override void Bake(HandAuthoring authoring)
 		{
+			var entity = GetEntity(authoring, TransformUsageFlags.None);
+			
 			var hand = new Hand
 			{
 				MaxCardsCount = authoring._maxCardsCount
 			};
-			AddComponent(GetEntity(authoring, TransformUsageFlags.None), hand);
+			AddComponent(entity, hand);
+			
+			AddComponent<CurrentlyUsingCards>(entity);
 		}
 	}
 }

@@ -15,7 +15,8 @@ public class DeckAuthoring : MonoBehaviour
 			{
 				deck[i] = new CardInDeck
 				{
-					CardPrefab = GetEntity(authoring._initialCards[i], TransformUsageFlags.None)
+					CardPrefab = GetEntity(authoring._initialCards[i], TransformUsageFlags.None),
+					LeftUseCount = CardInDeck.INVALID_LEFT_USE_COUNT
 				};
 			}
 		}
