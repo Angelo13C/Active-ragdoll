@@ -6,19 +6,18 @@ using UnityEngine;
 public struct ChangeLinearDampingOnPunch : IComponentData
 {
     public float NewLinearDrag;
-    public byte PunchCustomTag;
 
     public struct WithLookup
     {
         public ChangeLinearDampingOnPunch ChangeLinearDampingOnPunch;
         public ComponentLookup<PhysicsDamping> DampingLookup;
         [ReadOnly] public ComponentLookup<StrengthMultiplier.Root> RootLookup;
-        [ReadOnly] public ComponentLookup<RagdollBodyReference> RagdollBodyReferenceLookup;
+        [ReadOnly] public ComponentLookup<BodyPartsReference> RagdollBodyReferenceLookup;
         public ComponentLookup<Stunned> StunnedLookup;
 
         public void ApplyIfRequired(RigidBody rigidbodyThatHits, Entity entity)
         {
-            if ((rigidbodyThatHits.CustomTags & ChangeLinearDampingOnPunch.PunchCustomTag) != 0)
+            if (Punch.IsRigidBodyPunching(rigidbodyThatHits))
             {
                 if (RootLookup.TryGetComponent(entity, out var root))
                 {
@@ -42,7 +41,8 @@ public struct ChangeLinearDampingOnPunch : IComponentData
     }
 }
 
-public struct RagdollBodyReference : IComponentData
+public struct BodyPartsReference : IComponentData
 {
     public Entity Body;
+    public Entity RightLowerArm;
 }

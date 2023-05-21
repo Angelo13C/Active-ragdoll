@@ -23,7 +23,7 @@ public partial struct PunchIfNearPreySystem : ISystem
                     {
                         if (playedAnimationsLookup.TryGetBuffer(punchIfNearPrey.AnimationPlayer, out var playedAnimations))
                         {
-                            animationsCollection.PlayAnimationIfNotYetPlayed(animationsCollection.Punch, playedAnimations);
+                            animationsCollection.PlayAnimation(animationsCollection.Punch, playedAnimations);
                         }
                     }
                 }

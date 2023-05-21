@@ -22,7 +22,7 @@ public partial struct StrengthMultiplierSystem : ISystem
                 DampingLookup = SystemAPI.GetComponentLookup<PhysicsDamping>(false),
                 RootLookup = SystemAPI.GetComponentLookup<StrengthMultiplier.Root>(true),
                 StunnedLookup = SystemAPI.GetComponentLookup<Stunned>(false),
-                RagdollBodyReferenceLookup = SystemAPI.GetComponentLookup<RagdollBodyReference>(true)
+                RagdollBodyReferenceLookup = SystemAPI.GetComponentLookup<BodyPartsReference>(true)
             };
         }
         
