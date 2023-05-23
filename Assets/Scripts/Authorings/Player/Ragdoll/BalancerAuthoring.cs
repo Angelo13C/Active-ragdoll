@@ -31,7 +31,7 @@ public class BalancerAuthoring : MonoBehaviour
     private void OnDrawGizmos()
     {
         var length = GetComponent<MeshFilter>().sharedMesh.bounds.size.y * transform.lossyScale.y;
-        var offset = (Quaternion) _targetAngle.ToQuaternion(_balanceAxisType) * (Vector3.right * length / 2);
+        var offset = (Quaternion) _targetAngle.ToRadians().ToQuaternion(_balanceAxisType) * (Vector3.right * length / 2);
         Gizmos.color = new Color32(150, 75, 0, 255);
         Gizmos.DrawLine(transform.position + offset, transform.position - offset);
     }
