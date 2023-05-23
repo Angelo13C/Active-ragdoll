@@ -49,7 +49,7 @@ public static class DeckExtensions
             return;
         
         var cardToPutAtEnd = deck[cardIndex];
-        for (var i = 0; i < deck.Length - 1; i++)
+        for (var i = cardIndex; i < deck.Length - 1; i++)
             deck[i] = deck[i + 1];
         deck[^1] = cardToPutAtEnd;
     }
