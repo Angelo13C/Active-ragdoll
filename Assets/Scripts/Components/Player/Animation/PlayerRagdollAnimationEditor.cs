@@ -11,7 +11,7 @@ public class PlayerRagdollAnimationSO : ScriptableObject
 {
     [SerializeField] private bool _loop;
 #if UNITY_EDITOR
-    [SerializeField] [Min(0f)] private float _currentAnimationTimeDebug;
+    [SerializeField] private int _currentAnimationFrameDebug;
 #endif
     public PlayerRagdollAnimation.KeyFrame[] KeyFrames;
 
@@ -32,6 +32,11 @@ public class PlayerRagdollAnimationSO : ScriptableObject
     }
 
 #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        _currentAnimationFrameDebug = math.clamp(_currentAnimationFrameDebug, 0, KeyFrames.Length - 1);
+    }
+
     [UnityEditor.CustomEditor(typeof(PlayerRagdollAnimationSO))]
     public class CustomEditor : Editor
     {
@@ -57,10 +62,7 @@ public class PlayerRagdollAnimationSO : ScriptableObject
             }
 
             var animationBlob = animationSO.ToBlob();
-            var keyFrameNullable = animationBlob.Value.SampleUnlerped(animationSO._currentAnimationTimeDebug, out var i);
-            if (!keyFrameNullable.HasValue)
-                return;
-            var keyFrame = keyFrameNullable.Value;
+            var keyFrame = animationBlob.Value.KeyFrames[animationSO._currentAnimationFrameDebug];
 
             void DoHandle(ref float3 position, float3 offset, Color color, string undoRecordName)
             {
@@ -83,7 +85,7 @@ public class PlayerRagdollAnimationSO : ScriptableObject
                 DoHandle(ref keyFrame.RightArmKey.IKPolePosition, rightArmOffset, new Color(0.4f, 0.4f, 1), "Pole");
             }
             
-            animationSO.KeyFrames[i] = keyFrame;
+            animationSO.KeyFrames[animationSO._currentAnimationFrameDebug] = keyFrame;
         }
     }
 
