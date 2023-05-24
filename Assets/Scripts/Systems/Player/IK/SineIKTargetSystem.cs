@@ -12,7 +12,6 @@ public partial struct SineIKTargetSystem : ISystem
         {
             sineIKTarget.ValueRW.Update(deltaTime);
             ikSolver.ValueRW.Target = sineIKTarget.ValueRO.Sample();
-            ikSolver.ValueRW.Local = sineIKTarget.ValueRO.Local;
         }
     }
 }

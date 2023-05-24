@@ -13,7 +13,6 @@ public class SineIKTargetAuthoring : MonoBehaviour
     [Space]
     [SerializeField] private float3 _start;
     [SerializeField] private float3 _end;
-    [SerializeField] private bool _local;
     [SerializeField] private float _duration;
     [SerializeField] private bool _reversed;
 
@@ -25,8 +24,7 @@ public class SineIKTargetAuthoring : MonoBehaviour
             End = _end,
             CurrentTime = _duration / 2,
             Duration = _duration,
-            Direction = _reversed ? -1 : 1,
-            Local = _local
+            Direction = _reversed ? -1 : 1
         };
     }
 
@@ -44,9 +42,8 @@ public class SineIKTargetAuthoring : MonoBehaviour
 #if UNITY_EDITOR
     [SerializeField] private bool _preview;
     private float3? _targetPositionBeforePreview;
-    private bool _wasLocalBeforePreview;
     private SineIKTarget _sineIKTarget;
-    private float3 _globalOffset => _local ? (float3)transform.position : float3.zero;
+    private float3 _globalOffset => transform.position;
 
     private void Update()
     {
@@ -57,11 +54,9 @@ public class SineIKTargetAuthoring : MonoBehaviour
                 if (!_targetPositionBeforePreview.HasValue)
                 {
                     _targetPositionBeforePreview = ikSolver.Target;
-                    _wasLocalBeforePreview = ikSolver.Local;
                     _sineIKTarget = Bake();
                 }
 
-                ikSolver.Local = _local;
                 _sineIKTarget.Update(Time.deltaTime);
                 ikSolver.Target = _sineIKTarget.Sample();
             }
@@ -73,7 +68,6 @@ public class SineIKTargetAuthoring : MonoBehaviour
                 if (TryGetComponent<FabrikSolverAuthoring>(out var ikSolver))
                 {
                     ikSolver.Target = _targetPositionBeforePreview.Value;
-                    ikSolver.Local = _wasLocalBeforePreview;
                 }
                 _targetPositionBeforePreview = null;
             }

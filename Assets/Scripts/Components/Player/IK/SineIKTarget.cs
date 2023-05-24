@@ -8,7 +8,6 @@ public struct SineIKTarget : IComponentData, IEnableableComponent
     public float CurrentTime;
     public float Duration;
     public float Direction;
-    public bool Local;
 
     public void Update(float deltaTime)
     {

@@ -12,13 +12,7 @@ public class FabrikSolverAuthoring : MonoBehaviour
     [SerializeField] private int _maxIterationsCount = 40;
     [SerializeField] private float _maxErrorDistance = 0.01f;
 
-    [Header("Data")] 
-    [SerializeField] private bool _local = true;
-    public bool Local
-    {
-        get => _local;
-        set => _local = value;
-    }
+    [Header("Data")]
     [SerializeField] public Vector3 Target;
     [SerializeField] private Vector3 _pole;
 
@@ -72,7 +66,6 @@ public class FabrikSolverAuthoring : MonoBehaviour
             var ikSolver = new IKSolver
             {
                 Solver = new FabrikSolver(authoring._maxIterationsCount, authoring._maxErrorDistance),
-                Local = authoring._local,
                 Target = authoring.Target,
                 Pole = authoring._pole
             };
@@ -86,7 +79,6 @@ public class FabrikSolverAuthoring : MonoBehaviour
                 bonesAndEntities[i] = new IKBoneAndEntity
                 {
                     Bone = bones[i],
-                    InitialDirection = bones[i].Direction,
                     Entity = GetEntity(authoring.transform.GetChild(i), TransformUsageFlags.Dynamic)
                 };
             }
@@ -94,7 +86,7 @@ public class FabrikSolverAuthoring : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    public Vector3 GlobalOffset => _local ? BakeBones(Allocator.Temp)[0].Start : Vector3.zero;
+    public Vector3 GlobalOffset => BakeBones(Allocator.Temp)[0].Start;
     private Vector3 GlobalTarget => Target + GlobalOffset;
     private Vector3 GlobalPole => _pole + GlobalOffset;
     private void OnDrawGizmos()

@@ -5,15 +5,13 @@ using Unity.Mathematics;
 public struct IKSolver : IComponentData
 {
     public FabrikSolver Solver;
-    
-    public bool Local;
 
     public float3 Target;
     public float3? Pole;
 
     public void Solve(NativeArray<FabrikBone> bones)
     {
-        var offset = Local ? bones[0].Start : float3.zero;
+        var offset = bones[0].Start;
         Solver.Solve(bones, Target + offset, Pole.HasValue ? Pole.Value + offset : null);
     }
 }
@@ -21,7 +19,6 @@ public struct IKSolver : IComponentData
 public struct IKBoneAndEntity : IBufferElementData
 {
     public FabrikBone Bone;
-    public float3 InitialDirection;
     public Entity Entity;
 }
 
