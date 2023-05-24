@@ -1359,74 +1359,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
         type: 3}
-      propertyPath: EditAxes
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: EditPivots
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: MaxConeAngle
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
       propertyPath: ConnectedBody
       value: 
       objectReference: {fileID: 4300077430969354371}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: MaxTwistAngle
-      value: 121.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: MinTwistAngle
-      value: -180
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: PositionLocal.x
-      value: -0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: TwistAxisLocal.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: MaxPerpendicularAngle
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: MinPerpendicularAngle
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: PerpendicularAxisLocal.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: PositionInConnectedEntity.x
-      value: -0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: TwistAxisInConnectedEntity.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981906826670276407, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
-        type: 3}
-      propertyPath: PerpendicularAxisInConnectedEntity.z
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 6817143863700215405, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
         type: 3}
       propertyPath: m_Name
@@ -1504,8 +1439,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8196071819018789490, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
         type: 3}
+      propertyPath: PerpendicularAxisLocal.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196071819018789490, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
+        type: 3}
       propertyPath: PerpendicularAxisLocal.z
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8196071819018789490, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
         type: 3}
@@ -1519,8 +1459,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8196071819018789490, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
         type: 3}
+      propertyPath: PerpendicularAxisInConnectedEntity.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196071819018789490, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
+        type: 3}
       propertyPath: PerpendicularAxisInConnectedEntity.z
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8231997477250207858, guid: 36e9f8378e3fa3a40afbc8d9e2497d7e,
         type: 3}

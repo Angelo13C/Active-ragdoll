@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4512133510319422275}
   - component: {fileID: 6163565972293529427}
-  - component: {fileID: 208406033974163292}
+  - component: {fileID: 4055559802930089966}
   m_Layer: 0
   m_Name: Arm
   m_TagString: Untagged
@@ -52,7 +52,7 @@ MonoBehaviour:
   _local: 1
   Target: {x: 0, y: 0, z: 0}
   _pole: {x: 0, y: 0, z: 0}
---- !u!114 &208406033974163292
+--- !u!114 &4055559802930089966
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,7 +363,7 @@ MonoBehaviour:
     x: Infinity
     y: Infinity
     z: Infinity
-  EditPivots: 1
+  EditPivots: 0
   AutoSetConnected: 0
   PositionLocal:
     x: -0.3
@@ -373,7 +373,7 @@ MonoBehaviour:
     x: 0.3
     y: 0
     z: 0
-  EditAxes: 0
+  EditAxes: 1
   EditLimits: 1
   m_Version: 1
   TwistAxisLocal:
@@ -385,18 +385,18 @@ MonoBehaviour:
     y: 1
     z: 0
   PerpendicularAxisLocal:
-    x: 0
+    x: 1
     y: 0
-    z: 1
+    z: 0
   PerpendicularAxisInConnectedEntity:
-    x: 0
+    x: 1
     y: 0
-    z: 1
-  MaxConeAngle: 43.25
-  MinPerpendicularAngle: 40.44
+    z: 0
+  MaxConeAngle: 180
+  MinPerpendicularAngle: -90
   MaxPerpendicularAngle: 90
-  MinTwistAngle: -114.2
-  MaxTwistAngle: -5
+  MinTwistAngle: -180
+  MaxTwistAngle: 180
 --- !u!114 &4681914477026518589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,30 +724,30 @@ MonoBehaviour:
     x: 0.4
     y: 0.4
     z: 0
-  EditAxes: 0
+  EditAxes: 1
   EditLimits: 1
   m_Version: 1
   TwistAxisLocal:
-    x: 0
-    y: 1
+    x: -1
+    y: 0
     z: 0
   TwistAxisInConnectedEntity:
-    x: 0
-    y: 1
+    x: -1
+    y: 0
     z: 0
   PerpendicularAxisLocal:
     x: 0
-    y: 0
-    z: 1
+    y: 1
+    z: 0
   PerpendicularAxisInConnectedEntity:
     x: 0
-    y: 0
-    z: 1
-  MaxConeAngle: 55
-  MinPerpendicularAngle: -10
+    y: 1
+    z: 0
+  MaxConeAngle: 90
+  MinPerpendicularAngle: -90
   MaxPerpendicularAngle: 90
-  MinTwistAngle: -100
-  MaxTwistAngle: 51
+  MinTwistAngle: -180
+  MaxTwistAngle: 180
 --- !u!114 &3971561801395757772
 MonoBehaviour:
   m_ObjectHideFlags: 0
