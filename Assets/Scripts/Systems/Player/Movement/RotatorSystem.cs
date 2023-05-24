@@ -22,6 +22,7 @@ public partial struct RotatorSystem : ISystem
             if (balancersController.IsValid)
             {
                 balancersController.ValueRW.YRotationOffset += yRotation;
+                balancersController.ValueRW.YRotationOffset %= 360f;
             }
         }
     }
