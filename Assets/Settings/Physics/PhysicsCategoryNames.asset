@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CategoryNames:
   - Ragdoll
+  - Input
+  - AI
+  - Projectile
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Environment
   - 
   - 
   - 
