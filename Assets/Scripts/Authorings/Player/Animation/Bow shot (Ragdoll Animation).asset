@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c64125748a054d55a7fae4c8d24549ce, type: 3}
+  m_Name: Bow shot (Ragdoll Animation)
+  m_EditorClassIdentifier: 
+  _loop: 0
+  _lastFrameDuration: 0.4
+  _currentAnimationFrameDebug: 0
+  KeyFrames:
+  - Time: 0
+    RightArmKey:
+      Override: 1
+      IKTargetPosition:
+        x: -0.05301577
+        y: 0
+        z: 1.4813217
+      IKPolePosition:
+        x: 0.6743558
+        y: 0
+        z: 0.58084655
+    LeftArmKey:
+      Override: 1
+      IKTargetPosition:
+        x: 1.2637331
+        y: 0
+        z: 1.8794893
+      IKPolePosition:
+        x: -0.9436776
+        y: 0
+        z: 0.6098724
+  - Time: 0.8
+    RightArmKey:
+      Override: 1
+      IKTargetPosition:
+        x: -0.014140308
+        y: 0
+        z: 1.486875
+      IKPolePosition:
+        x: 0.63366514
+        y: 0
+        z: 0.54728204
+    LeftArmKey:
+      Override: 1
+      IKTargetPosition:
+        x: 1.2943532
+        y: 0
+        z: 0.72807187
+      IKPolePosition:
+        x: -0.9436776
+        y: 0
+        z: 0.6098724
