@@ -11,8 +11,7 @@ public struct IKSolver : IComponentData
 
     public void Solve(NativeArray<FabrikBone> bones)
     {
-        var offset = bones[0].Start;
-        Solver.Solve(bones, Target + offset, Pole.HasValue ? Pole.Value + offset : null);
+        Solver.Solve(bones, Target, Pole);
     }
 }
 

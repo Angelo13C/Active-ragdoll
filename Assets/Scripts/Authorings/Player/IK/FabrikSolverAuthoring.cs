@@ -35,7 +35,7 @@ public class FabrikSolverAuthoring : MonoBehaviour
                     biggestChildAxis.z = 1;
                 var biggestAxisSize = Vector3.Dot(biggestChildAxis, childSize);
                 var direction = child.rotation * biggestChildAxis * Mathf.Sign(Vector3.Dot(biggestChildAxis, child.lossyScale));
-                var start = child.position - direction * biggestAxisSize;
+                var start = child.localPosition - direction * biggestAxisSize;
                 var overlappingLength = 0f;
                 if (i != 0)
                 {
@@ -86,7 +86,7 @@ public class FabrikSolverAuthoring : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    public Vector3 GlobalOffset => BakeBones(Allocator.Temp)[0].Start;
+    public Vector3 GlobalOffset => transform.GetChild(0).position;
     private Vector3 GlobalTarget => Target + GlobalOffset;
     private Vector3 GlobalPole => _pole + GlobalOffset;
     private void OnDrawGizmos()
@@ -100,10 +100,10 @@ public class FabrikSolverAuthoring : MonoBehaviour
         Gizmos.color = Color.magenta;
         var bones = BakeBones(Allocator.Temp);
         var fabrikSolver = new FabrikSolver(_maxIterationsCount, _maxErrorDistance);
-        fabrikSolver.Solve(bones, GlobalTarget, GlobalPole);
+        fabrikSolver.Solve(bones, Target, _pole);
         foreach (var bone in bones)
         {
-            Gizmos.DrawLine(bone.Start, bone.End);
+            Gizmos.DrawLine(bone.Start + (float3) GlobalOffset, bone.End + (float3) GlobalOffset);
         }
     }
 
