@@ -10,6 +10,7 @@ using UnityEngine;
 public class PlayerRagdollAnimationSO : ScriptableObject
 {
     [SerializeField] private bool _loop;
+    [SerializeField] [Min(0)] private float _lastFrameDuration;
 #if UNITY_EDITOR
     [SerializeField] private int _currentAnimationFrameDebug;
 #endif
@@ -21,6 +22,7 @@ public class PlayerRagdollAnimationSO : ScriptableObject
         ref var animation = ref builder.ConstructRoot<PlayerRagdollAnimation>();
 
         animation.Loop = _loop;
+        animation.LastFrameDuration = _lastFrameDuration;
 
         var blobKeyFrames = builder.Allocate(ref animation.KeyFrames, KeyFrames.Length);
         for (var i = 0; i < blobKeyFrames.Length; i++)

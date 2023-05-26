@@ -6,37 +6,35 @@ public struct PlayerRagdollAnimation
 {
     public bool Loop;
     public BlobArray<KeyFrame> KeyFrames;
+    public float LastFrameDuration;
+
+    public float Duration => KeyFrames.Length == 0 ? 0f : KeyFrames[^1].Time + LastFrameDuration;
 
     public void SampleTimeAndPercentage(float time, out int index, out float percentage)
     {
-        if (Loop && KeyFrames.Length > 0)
-        {
-            var lastKeyFrame = KeyFrames[KeyFrames.Length - 1];
-            if(lastKeyFrame.Time != 0)
-                time %= lastKeyFrame.Time;
-        }
-        
+        if (Loop && Duration != 0)
+            time %= Duration;
+
         if (KeyFrames.Length == 1 && KeyFrames[0].Time <= time)
             time = KeyFrames[0].Time;
             
-        for(var i = 0; i < KeyFrames.Length; i++)
+        for(index = 0; index < KeyFrames.Length - 1; index++)
         {
-            if (KeyFrames[i].Time >= time)
+            if (KeyFrames[index + 1].Time >= time)
             {
-                index = math.max(i - 1, 0);
-                percentage = math.unlerp(KeyFrames[index].Time, KeyFrames[i].Time, time);
+                percentage = math.unlerp(KeyFrames[index].Time, KeyFrames[index + 1].Time, time);
+                return;
+            }
+            else if (index + 1 == KeyFrames.Length - 1 && time <= Duration)
+            {
+                index++;
+                percentage = 1;
                 return;
             }
         }
 
         index = -1;
         percentage = -1;
-    }
-
-    public KeyFrame? SampleUnlerped(float time, out int index)
-    {
-        SampleTimeAndPercentage(time, out index, out var _);
-        return index == -1 ? null : KeyFrames[index];
     }
 
     // This doesn't work fine for keyframes where arms are not overriden!
@@ -52,6 +50,9 @@ public struct PlayerRagdollAnimation
         if (index == -1)
             return null;
 
+        if (index == KeyFrames.Length - 1)
+            return KeyFrames[index];
+        
         return new KeyFrame
         {
             Time = time,

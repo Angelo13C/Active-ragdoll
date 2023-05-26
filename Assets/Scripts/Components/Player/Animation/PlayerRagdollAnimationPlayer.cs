@@ -24,6 +24,6 @@ public struct PlayedAnimation : IBufferElementData
         if (animation.Loop)
             return false;
         
-        return animation.KeyFrames.Length == 0 || CurrentTime > animation.KeyFrames[animation.KeyFrames.Length - 1].Time;
+        return animation.KeyFrames.Length == 0 || CurrentTime > animation.Duration;
     }
 }
