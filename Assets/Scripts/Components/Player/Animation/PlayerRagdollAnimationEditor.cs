@@ -48,7 +48,7 @@ public class PlayerRagdollAnimationSO : ScriptableObject
         private void OnSceneGUI(SceneView sv)
         {
             var animationSO = (PlayerRagdollAnimationSO) target;
-            if (animationSO.KeyFrames == null)
+            if (animationSO.KeyFrames == null || animationSO.KeyFrames.Length == 0)
                 return;
             
             var randomRagdoll = FindObjectOfType<PlayerRagdollAnimationPlayerAuthoring>();
