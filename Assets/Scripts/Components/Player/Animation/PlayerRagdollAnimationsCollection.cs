@@ -4,6 +4,7 @@ public struct PlayerRagdollAnimationsCollection : IComponentData
 {
     public BlobAssetReference<PlayerRagdollAnimation> Punch;
     public BlobAssetReference<PlayerRagdollAnimation> BowShot;
+    public BlobAssetReference<PlayerRagdollAnimation> ThrowBone;
     
     public bool IsAnimationPlaying(BlobAssetReference<PlayerRagdollAnimation> animation, DynamicBuffer<PlayedAnimation> playedAnimations)
     {
