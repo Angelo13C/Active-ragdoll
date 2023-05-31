@@ -13,7 +13,7 @@ public partial struct ResetLinearDampingWhenStillSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         foreach (var (resetLinearDampingWhenStill, physicsVelocity, physicsDamping) in SystemAPI
-                     .Query<ResetLinearDampingWhenStill, PhysicsVelocity, RefRW<PhysicsDamping>>())
+                     .Query<ResetLinearDampingWhenStill, PhysicsVelocity, RefRW<PhysicsDamping>>().WithNone<HitByExplosion>())
         {
             if (math.lengthsq(physicsVelocity.Linear) <= resetLinearDampingWhenStill.MaxSpeedToConsiderStillSqr)
             {

@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 213722503}
   - component: {fileID: 213722504}
   - component: {fileID: 213722505}
+  - component: {fileID: 213722506}
   m_Layer: 0
   m_Name: Physics
   m_TagString: Untagged
@@ -217,6 +218,27 @@ MonoBehaviour:
     EnableVisualDebugger: 0
     Port: 25001
     TimerBufferSize: 1048576
+--- !u!114 &213722506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213722501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8366c5af4dcf974db15a3140770308a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _removeWhenCollidesWithTags:
+    Tag00: 0
+    Tag01: 0
+    Tag02: 0
+    Tag03: 0
+    Tag04: 0
+    Tag05: 0
+    Tag06: 0
+    Tag07: 1
 --- !u!1 &799519256
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +517,7 @@ MonoBehaviour:
     Tag04: 0
     Tag05: 0
     Tag06: 0
-    Tag07: 0
+    Tag07: 1
 --- !u!1 &940852784
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,17 +669,17 @@ PrefabInstance:
     - target: {fileID: 4831558362839156217, guid: cc5917ad5df64a84bad59a22ee20a27d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.98
+      value: -19.2
       objectReference: {fileID: 0}
     - target: {fileID: 4831558362839156217, guid: cc5917ad5df64a84bad59a22ee20a27d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.05
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 4831558362839156217, guid: cc5917ad5df64a84bad59a22ee20a27d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.38
+      value: 13.53
       objectReference: {fileID: 0}
     - target: {fileID: 4831558362839156217, guid: cc5917ad5df64a84bad59a22ee20a27d,
         type: 3}
@@ -884,7 +906,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _initialCards.Array.data[1]
       value: 
-      objectReference: {fileID: 5640788823247858113, guid: f76098d498030374e94fda2fb61a7f5a,
+      objectReference: {fileID: 2077786063165778298, guid: 8eab617df55ef4c409374419af1bc000,
         type: 3}
     - target: {fileID: 6548646380334660135, guid: 988d88ab7e3cf804799d67412b66f071,
         type: 3}

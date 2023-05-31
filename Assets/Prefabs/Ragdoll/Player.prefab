@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 1345349902922270682}
   - component: {fileID: 4326793114395581438}
   - component: {fileID: 4141058670700600934}
+  - component: {fileID: 1571914155292823811}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -739,6 +740,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeedToRemoveStun: 4
+--- !u!114 &1571914155292823811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5928099902900117994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d28a1f76a369034584b871ac59de5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _newDrag: 0.2
 --- !u!1 &6253278525924842048
 GameObject:
   m_ObjectHideFlags: 0
