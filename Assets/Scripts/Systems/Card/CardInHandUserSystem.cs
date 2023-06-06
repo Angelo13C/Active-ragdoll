@@ -12,12 +12,12 @@ public partial struct CardInHandUserSystem : ISystem
     {
         var entityCommandBuffer = new EntityCommandBuffer(Allocator.Temp);
         
-        foreach (var (deck, inputCardInHandUser, currentlyUsingCards, entity) in SystemAPI.Query<DynamicBuffer<CardInDeck>, InputCardInHandUser, RefRW<CurrentlyUsingCards>>().WithEntityAccess())
+        foreach (var (deck, hand, inputCardInHandUser, currentlyUsingCards, entity) in SystemAPI.Query<DynamicBuffer<CardInDeck>, Hand, InputCardInHandUser, RefRW<CurrentlyUsingCards>>().WithEntityAccess())
         {
             var cardToUse = inputCardInHandUser.TryingToUse.ToCardIndex();
             if (cardToUse != -1)
             {
-                var (usedCardPrefab, lastUse) = deck.UseCardAndEventuallyPutAtEnd(cardToUse);
+                var (usedCardPrefab, lastUse) = deck.UseCardAndEventuallyPutAtEnd(cardToUse, hand);
                 if (usedCardPrefab != Entity.Null)
                 {
                     var lastUseType = lastUse ? CardUsedBy.Use.Last : CardUsedBy.Use.None;

@@ -28,7 +28,7 @@ public static class DeckExtensions
         });
     }
     
-    public static (Entity, bool) UseCardAndEventuallyPutAtEnd(this Deck deck, int cardIndex)
+    public static (Entity, bool) UseCardAndEventuallyPutAtEnd(this Deck deck, int cardIndex, Hand hand)
     {
         if (deck.IsEmpty)
             return (Entity.Null, false);
@@ -38,19 +38,20 @@ public static class DeckExtensions
         if (deck[cardIndex].LeftUseCount == 0)
         {
             deck.ElementAt(cardIndex).LeftUseCount = CardInDeck.INVALID_LEFT_USE_COUNT;
-            PutCardAtEnd(deck, cardIndex);
+            PutCardAtEnd(deck, cardIndex, hand);
         }
         return (usedCard.CardPrefab, usedCard.LeftUseCount == 1);
     }
     
-    public static void PutCardAtEnd(this Deck deck, int cardIndex)
+    public static void PutCardAtEnd(this Deck deck, int cardIndex, Hand hand)
     {
-        if (deck.IsEmpty)
+        if (deck.Length < hand.MaxCardsCount)
             return;
-        
-        var cardToPutAtEnd = deck[cardIndex];
-        for (var i = cardIndex; i < deck.Length - 1; i++)
+
+        var newCard = deck[hand.MaxCardsCount];
+        for (var i = hand.MaxCardsCount; i < deck.Length - 1; i++)
             deck[i] = deck[i + 1];
-        deck[^1] = cardToPutAtEnd;
+        deck[^1] = deck[cardIndex];
+        deck[cardIndex] = newCard;
     }
 }
