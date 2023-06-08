@@ -7,7 +7,6 @@ using Unity.Physics;
 using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
 using Unity.Transforms;
-using UnityEngine;
 using ForceMode = Unity.Physics.Extensions.ForceMode;
 
 [UpdateInGroup(typeof(AfterPhysicsSystemGroup))]

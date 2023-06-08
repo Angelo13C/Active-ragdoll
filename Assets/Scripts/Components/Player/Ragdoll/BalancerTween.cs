@@ -25,5 +25,4 @@ public struct BalancerTween : IComponentData, IEnableableComponent
     }
 
     public PolarCoordinates Sample() => math.lerp(FromTargetAngle, ToTargetAngle, CurrentTime / Duration);
-    //Direction == -1 ? FromTargetAngle : ToTargetAngle;
 }

@@ -1,6 +1,4 @@
 using Unity.Entities;
-using Unity.Physics;
-using Unity.Physics.Authoring;
 using UnityEngine;
 
 public class ChangeLinearDampingOnPunchAuthoring : MonoBehaviour

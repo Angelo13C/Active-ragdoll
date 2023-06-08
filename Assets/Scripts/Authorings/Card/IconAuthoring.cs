@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using UnityEngine.Serialization;
 
 public class IconAuthoring : MonoBehaviour
 {
