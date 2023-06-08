@@ -15,7 +15,14 @@ public partial struct StunnedSystem : ISystem
         foreach (var (stunned, physicsVelocity, entity) in SystemAPI.Query<RefRW<Stunned>, PhysicsVelocity>().WithEntityAccess())
         {
             stunned.ValueRW.Duration -= deltaTime;
-            var finished = stunned.ValueRO.Duration <= 0 || stunned.ValueRO.MaxSpeedToRemoveStunSqr >= math.lengthsq(physicsVelocity.Linear);
+            var maxSpeedReached = stunned.ValueRO.MaxSpeedToRemoveStunSqr >= math.lengthsq(physicsVelocity.Linear);
+            if (maxSpeedReached)
+            {
+                stunned.ValueRW.ExtraTimeToWaitAfterMaxSpeedRemove -= deltaTime;
+                maxSpeedReached = stunned.ValueRO.ExtraTimeToWaitAfterMaxSpeedRemove <= 0f;
+            }
+            
+            var finished = stunned.ValueRO.Duration <= 0 || maxSpeedReached;
             if(finished)
                 SystemAPI.SetComponentEnabled<Stunned>(entity, false);
             if (rootLookup.TryGetComponent(entity, out var root))

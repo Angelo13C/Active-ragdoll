@@ -13,6 +13,17 @@ public partial struct StrengthMultiplierSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        var deltaTime = SystemAPI.Time.DeltaTime;
+        foreach (var timers in SystemAPI.Query<DynamicBuffer<StrengthMultiplier.Timer>>())
+        {
+            for (var i = 0; i < timers.Length; i++)
+            {
+                timers.ElementAt(i).RemainingTime -= deltaTime;
+                if(timers[i].HasExpired)
+                    timers.RemoveAtSwapBack(i);
+            }
+        }
+        
         ChangeLinearDampingOnPunch.WithLookup? onPunch = null;
         if (SystemAPI.TryGetSingleton<ChangeLinearDampingOnPunch>(out var onPunchSingleton))
         {
@@ -20,19 +31,19 @@ public partial struct StrengthMultiplierSystem : ISystem
             {
                 ChangeLinearDampingOnPunch = onPunchSingleton,
                 DampingLookup = SystemAPI.GetComponentLookup<PhysicsDamping>(false),
-                RootLookup = SystemAPI.GetComponentLookup<StrengthMultiplier.Root>(true),
                 StunnedLookup = SystemAPI.GetComponentLookup<Stunned>(false),
                 RagdollBodyReferenceLookup = SystemAPI.GetComponentLookup<BodyPartsReference>(true)
             };
         }
-        
+
         var physicsWorld = SystemAPI.GetSingletonRW<PhysicsWorldSingleton>();
         state.Dependency = new ApplyStrengthMultiplierJob 
         {
             PhysicsWorld = physicsWorld.ValueRW.PhysicsWorld,
             StrengthMultiplierLookup = SystemAPI.GetComponentLookup<StrengthMultiplier>(true),
             RootLookup = SystemAPI.GetComponentLookup<StrengthMultiplier.Root>(true),
-            OnPunch = onPunch
+            OnPunch = onPunch,
+            TimerLookup = SystemAPI.GetBufferLookup<StrengthMultiplier.Timer>(false)
         }.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
     }
 
@@ -44,39 +55,49 @@ public partial struct StrengthMultiplierSystem : ISystem
         [ReadOnly] public ComponentLookup<StrengthMultiplier.Root> RootLookup;
         public ChangeLinearDampingOnPunch.WithLookup? OnPunch;
 
+        public BufferLookup<StrengthMultiplier.Timer> TimerLookup;
+        
         public void Execute(CollisionEvent collisionEvent)
         {
-            var strengthA = StrengthMultiplier.Invalid;
-            var strengthB = StrengthMultiplier.Invalid;
-            if (StrengthMultiplierLookup.TryGetComponent(collisionEvent.EntityA, out var strengthMultiplierA))
-                strengthA = strengthMultiplierA;
-            if (StrengthMultiplierLookup.TryGetComponent(collisionEvent.EntityB, out var strengthMultiplierB))
-                strengthB = strengthMultiplierB;
+            var strengthA = StrengthMultiplierLookup.GetRefROOptional(collisionEvent.EntityA);
+            var strengthB = StrengthMultiplierLookup.GetRefROOptional(collisionEvent.EntityB);
 
             if (strengthA.IsValid || strengthB.IsValid)
             {
-                if (RootLookup.TryGetComponent(collisionEvent.EntityA, out var rootA) &&
-                    RootLookup.TryGetComponent(collisionEvent.EntityB, out var rootB))
-                {
-                    if (rootA == rootB)
-                        return;
-                }
+                var rootA = RootLookup.GetRefROOptional(collisionEvent.EntityA);
+                var rootB = RootLookup.GetRefROOptional(collisionEvent.EntityB);
+                if (rootA.IsValid && rootB.IsValid && rootA.ValueRO == rootB.ValueRO)
+                    return;
 
                 var collisionDetails = collisionEvent.CalculateDetails(ref PhysicsWorld);
 
-                if (strengthA.IsValid)
+                void Do(RefRO<StrengthMultiplier> strength, float impulseDirection, Entity entityHitter, Entity hitEntity, RefRO<StrengthMultiplier.Root> hitRoot, int hitterBodyIndex, int hitBodyIndex, BufferLookup<StrengthMultiplier.Timer> timerLookup, ChangeLinearDampingOnPunch.WithLookup? onPunch, PhysicsWorld physicsWorld)
                 {
-                    if (OnPunch.HasValue)
-                        OnPunch.Value.ApplyIfRequired(PhysicsWorld.Bodies[collisionEvent.BodyIndexA], collisionEvent.EntityB);
-                    PhysicsWorld.ApplyImpulse(collisionEvent.BodyIndexB, -collisionEvent.Normal * (strengthA.ForceMultiplierOnCollision - 1), collisionDetails.AverageContactPointPosition);
-                }
+                    if (strength.IsValid)
+                    {
+                        if (timerLookup.TryGetBuffer(entityHitter, out var timers))
+                        {
+                            var timerEntity = hitRoot.IsValid ? hitRoot.ValueRO.RootEntity : hitEntity;
+                            if (!timers.Contains(timerEntity))
+                            {
+                                timers.Add(new StrengthMultiplier.Timer
+                                {
+                                    HitEntity = timerEntity,
+                                    RemainingTime = 1f
+                                });
+                            
+                                var impulse = collisionEvent.Normal * strength.ValueRO.ForceMultiplierOnCollision * impulseDirection;
+                                if (onPunch.HasValue)
+                                    onPunch.Value.ApplyIfRequired(physicsWorld.Bodies[hitterBodyIndex], hitRoot);
 
-                if (strengthB.IsValid)
-                {
-                    if (OnPunch.HasValue)
-                        OnPunch.Value.ApplyIfRequired(PhysicsWorld.Bodies[collisionEvent.BodyIndexB], collisionEvent.EntityA);
-                    PhysicsWorld.ApplyImpulse(collisionEvent.BodyIndexA, collisionEvent.Normal * (strengthB.ForceMultiplierOnCollision - 1), collisionDetails.AverageContactPointPosition);
+                                physicsWorld.ApplyImpulse(hitBodyIndex, impulse, collisionDetails.AverageContactPointPosition);
+                            }
+                        }
+                    }
                 }
+                
+                Do(strengthA, -1, collisionEvent.EntityA, collisionEvent.EntityB, rootB, collisionEvent.BodyIndexA, collisionEvent.BodyIndexB, TimerLookup, OnPunch, PhysicsWorld);
+                Do(strengthB, 1, collisionEvent.EntityB, collisionEvent.EntityA, rootA, collisionEvent.BodyIndexB, collisionEvent.BodyIndexA, TimerLookup, OnPunch, PhysicsWorld);
             }
         }
     }

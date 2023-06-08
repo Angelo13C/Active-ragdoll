@@ -19,6 +19,7 @@ public class StrengthMultiplierAuthoring : MonoBehaviour
 				ForceMultiplierOnCollision = authoring._forceMultiplierOnCollision
 			};
 			AddComponent(entity, strengthMultiplier);
+			AddBuffer<StrengthMultiplier.Timer>(entity);
 		}
 	}
 }

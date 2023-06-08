@@ -1,7 +1,6 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
-using UnityEngine;
 
 public struct ChangeLinearDampingOnPunch : IComponentData
 {
@@ -11,29 +10,26 @@ public struct ChangeLinearDampingOnPunch : IComponentData
     {
         public ChangeLinearDampingOnPunch ChangeLinearDampingOnPunch;
         public ComponentLookup<PhysicsDamping> DampingLookup;
-        [ReadOnly] public ComponentLookup<StrengthMultiplier.Root> RootLookup;
         [ReadOnly] public ComponentLookup<BodyPartsReference> RagdollBodyReferenceLookup;
         public ComponentLookup<Stunned> StunnedLookup;
 
-        public void ApplyIfRequired(RigidBody rigidbodyThatHits, Entity entity)
+        public void ApplyIfRequired(RigidBody rigidbodyThatHits, RefRO<StrengthMultiplier.Root> hitEntityRoot)
         {
-            if (Punch.IsRigidBodyPunching(rigidbodyThatHits))
+            if (Punch.IsRigidBodyPunching(rigidbodyThatHits) && hitEntityRoot.IsValid)
             {
-                if (RootLookup.TryGetComponent(entity, out var root))
+                if (RagdollBodyReferenceLookup.TryGetComponent(hitEntityRoot.ValueRO.RootEntity, out var ragdollBodyReference))
                 {
-                    if (RagdollBodyReferenceLookup.TryGetComponent(root.RootEntity, out var ragdollBodyReference))
+                    var damping = DampingLookup.GetRefRWOptional(ragdollBodyReference.Body, false);
+                    if (damping.IsValid)
+                        damping.ValueRW.Linear = ChangeLinearDampingOnPunch.NewLinearDrag;
+                    
+                    var stunned = StunnedLookup.GetRefRWOptional(ragdollBodyReference.Body, false);
+                    if (stunned.IsValid)
                     {
-                        var damping = DampingLookup.GetRefRWOptional(ragdollBodyReference.Body, false);
-                        if (damping.IsValid)
-                            damping.ValueRW.Linear = ChangeLinearDampingOnPunch.NewLinearDrag;
-                        
-                        var stunned = StunnedLookup.GetRefRWOptional(ragdollBodyReference.Body, false);
-                        if (stunned.IsValid)
-                        {
-                            StunnedLookup.SetComponentEnabled(ragdollBodyReference.Body, true);
-                            stunned.ValueRW.Duration = 50f;
-                            stunned.ValueRW.CompleteStun = true;
-                        }
+                        StunnedLookup.SetComponentEnabled(ragdollBodyReference.Body, true);
+                        stunned.ValueRW.Duration = 50f;
+                        stunned.ValueRW.CompleteStun = true;
+                        stunned.ValueRW.ExtraTimeToWaitAfterMaxSpeedRemove = 1.5f;
                     }
                 }
             }
