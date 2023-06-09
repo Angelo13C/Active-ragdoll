@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ab982d69d42db4596bffa4225d6810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forceMultiplierOnCollision: 1
+  _forceMultiplierOnCollision: 6
 --- !u!1 &8725764045597569153 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6253278525924842048, guid: 003d8ba4a8f377347a6db4a0b5e7c1d0,

@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 348d6664bf3c69640a18b308065ea871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeedToConsiderStill: 5
+  _maxSpeedToConsiderStill: 2
 --- !u!114 &4141058670700600934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441885ca12ddb37409a9f6f0a97887fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeedToRemoveStun: 4
+  _maxSpeedToRemoveStun: 1.5
 --- !u!114 &1571914155292823811
 MonoBehaviour:
   m_ObjectHideFlags: 0
