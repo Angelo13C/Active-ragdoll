@@ -62,7 +62,8 @@ public partial struct StrengthMultiplierSystem : ISystem
             var strengthA = StrengthMultiplierLookup.GetRefROOptional(collisionEvent.EntityA);
             var strengthB = StrengthMultiplierLookup.GetRefROOptional(collisionEvent.EntityB);
 
-            if (strengthA.IsValid || strengthB.IsValid)
+            if ((strengthA.IsValid && StrengthMultiplierLookup.IsComponentEnabled(collisionEvent.EntityA)) || 
+                (strengthB.IsValid && StrengthMultiplierLookup.IsComponentEnabled(collisionEvent.EntityB)))
             {
                 var rootA = RootLookup.GetRefROOptional(collisionEvent.EntityA);
                 var rootB = RootLookup.GetRefROOptional(collisionEvent.EntityB);
@@ -71,7 +72,7 @@ public partial struct StrengthMultiplierSystem : ISystem
 
                 var collisionDetails = collisionEvent.CalculateDetails(ref PhysicsWorld);
 
-                void Do(RefRO<StrengthMultiplier> strength, float impulseDirection, Entity entityHitter, Entity hitEntity, RefRO<StrengthMultiplier.Root> hitRoot, int hitterBodyIndex, int hitBodyIndex, BufferLookup<StrengthMultiplier.Timer> timerLookup, ChangeLinearDampingOnPunch.WithLookup? onPunch, PhysicsWorld physicsWorld)
+                void Do(RefRO<StrengthMultiplier> strength, float impulseDirection, Entity entityHitter, Entity hitEntity, RefRO<StrengthMultiplier.Root> hitRoot, int hitBodyIndex, BufferLookup<StrengthMultiplier.Timer> timerLookup, ChangeLinearDampingOnPunch.WithLookup? onPunch, PhysicsWorld physicsWorld)
                 {
                     if (strength.IsValid)
                     {
@@ -88,7 +89,7 @@ public partial struct StrengthMultiplierSystem : ISystem
                             
                                 var impulse = collisionEvent.Normal * strength.ValueRO.ForceMultiplierOnCollision * impulseDirection;
                                 if (onPunch.HasValue)
-                                    onPunch.Value.ApplyIfRequired(physicsWorld.Bodies[hitterBodyIndex], hitRoot);
+                                    onPunch.Value.ApplyIfRequired(hitRoot);
 
                                 physicsWorld.ApplyImpulse(hitBodyIndex, impulse, collisionDetails.AverageContactPointPosition);
                             }
@@ -96,8 +97,8 @@ public partial struct StrengthMultiplierSystem : ISystem
                     }
                 }
                 
-                Do(strengthA, -1, collisionEvent.EntityA, collisionEvent.EntityB, rootB, collisionEvent.BodyIndexA, collisionEvent.BodyIndexB, TimerLookup, OnPunch, PhysicsWorld);
-                Do(strengthB, 1, collisionEvent.EntityB, collisionEvent.EntityA, rootA, collisionEvent.BodyIndexB, collisionEvent.BodyIndexA, TimerLookup, OnPunch, PhysicsWorld);
+                Do(strengthA, -1, collisionEvent.EntityA, collisionEvent.EntityB, rootB, collisionEvent.BodyIndexB, TimerLookup, OnPunch, PhysicsWorld);
+                Do(strengthB, 1, collisionEvent.EntityB, collisionEvent.EntityA, rootA, collisionEvent.BodyIndexA, TimerLookup, OnPunch, PhysicsWorld);
             }
         }
     }

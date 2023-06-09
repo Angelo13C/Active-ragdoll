@@ -13,24 +13,21 @@ public struct ChangeLinearDampingOnPunch : IComponentData
         [ReadOnly] public ComponentLookup<BodyPartsReference> RagdollBodyReferenceLookup;
         public ComponentLookup<Stunned> StunnedLookup;
 
-        public void ApplyIfRequired(RigidBody rigidbodyThatHits, RefRO<StrengthMultiplier.Root> hitEntityRoot)
+        public void ApplyIfRequired(RefRO<StrengthMultiplier.Root> hitEntityRoot)
         {
-            if (Punch.IsRigidBodyPunching(rigidbodyThatHits) && hitEntityRoot.IsValid)
+            if (RagdollBodyReferenceLookup.TryGetComponent(hitEntityRoot.ValueRO.RootEntity, out var ragdollBodyReference))
             {
-                if (RagdollBodyReferenceLookup.TryGetComponent(hitEntityRoot.ValueRO.RootEntity, out var ragdollBodyReference))
+                var damping = DampingLookup.GetRefRWOptional(ragdollBodyReference.Body, false);
+                if (damping.IsValid)
+                    damping.ValueRW.Linear = ChangeLinearDampingOnPunch.NewLinearDrag;
+                
+                var stunned = StunnedLookup.GetRefRWOptional(ragdollBodyReference.Body, false);
+                if (stunned.IsValid)
                 {
-                    var damping = DampingLookup.GetRefRWOptional(ragdollBodyReference.Body, false);
-                    if (damping.IsValid)
-                        damping.ValueRW.Linear = ChangeLinearDampingOnPunch.NewLinearDrag;
-                    
-                    var stunned = StunnedLookup.GetRefRWOptional(ragdollBodyReference.Body, false);
-                    if (stunned.IsValid)
-                    {
-                        StunnedLookup.SetComponentEnabled(ragdollBodyReference.Body, true);
-                        stunned.ValueRW.Duration = 50f;
-                        stunned.ValueRW.CompleteStun = true;
-                        stunned.ValueRW.ExtraTimeToWaitAfterMaxSpeedRemove = 1.5f;
-                    }
+                    StunnedLookup.SetComponentEnabled(ragdollBodyReference.Body, true);
+                    stunned.ValueRW.Duration = 50f;
+                    stunned.ValueRW.CompleteStun = true;
+                    stunned.ValueRW.ExtraTimeToWaitAfterMaxSpeedRemove = 1.5f;
                 }
             }
         }

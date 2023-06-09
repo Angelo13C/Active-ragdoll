@@ -1,7 +1,6 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Physics;
 
 [BurstCompile]
 public partial struct PunchSystem : ISystem
@@ -25,17 +24,12 @@ public partial struct PunchSystem : ISystem
 
                 if (bodyPartsReferenceLookup.TryGetComponent(cardUsedBy.UsedBy, out var bodyPartsReference))
                 {
-                    if(!SystemAPI.HasComponent<PhysicsCustomTags>(bodyPartsReference.RightLowerArm))
-                        entityCommandBuffer.AddComponent(bodyPartsReference.RightLowerArm, new PhysicsCustomTags { Value = Punch.PUNCH_CUSTOM_PHYSICS_BODY_TAGS });
-                    else
+                    if (strengthMultiplierLookup.HasComponent(bodyPartsReference.RightLowerArm))
                     {
-                        var bodyCustomTags = SystemAPI.GetComponentRW<PhysicsCustomTags>(bodyPartsReference.RightLowerArm, false);
-                        bodyCustomTags.ValueRW.Value |= Punch.PUNCH_CUSTOM_PHYSICS_BODY_TAGS;
-                    }
-
-                    var strengthMultiplier = strengthMultiplierLookup.GetRefRWOptional(bodyPartsReference.RightLowerArm, false);
-                    if(strengthMultiplier.IsValid)
+                        strengthMultiplierLookup.SetComponentEnabled(bodyPartsReference.RightLowerArm, true);
+                        var strengthMultiplier = strengthMultiplierLookup.GetRefRW(bodyPartsReference.RightLowerArm, false);
                         strengthMultiplier.ValueRW.ForceMultiplierOnCollision *= punch.StrengthMultiplier;
+                    }
                 }
 
                 SystemAPI.SetComponentEnabled<Punch>(entity, false);
@@ -50,14 +44,15 @@ public partial struct PunchSystem : ISystem
                 {
                     if (bodyPartsReferenceLookup.TryGetComponent(cardUsedBy.UsedBy, out var bodyPartsReference))
                     {
-                        var bodyCustomTags = SystemAPI.GetComponentRW<PhysicsCustomTags>(bodyPartsReference.RightLowerArm, false);
-                        bodyCustomTags.ValueRW.Value &= byte.MaxValue ^ Punch.PUNCH_CUSTOM_PHYSICS_BODY_TAGS;
-                        
                         entityCommandBuffer.DestroyEntity(entity);
-                        
-                        var strengthMultiplier = strengthMultiplierLookup.GetRefRWOptional(bodyPartsReference.RightLowerArm, false);
-                        if(strengthMultiplier.IsValid)
+
+                        if (strengthMultiplierLookup.HasComponent(bodyPartsReference.RightLowerArm))
+                        {
+                            var strengthMultiplier = strengthMultiplierLookup.GetRefRW(bodyPartsReference.RightLowerArm, false);
                             strengthMultiplier.ValueRW.ForceMultiplierOnCollision /= punch.StrengthMultiplier;
+                            strengthMultiplierLookup.SetComponentEnabled(bodyPartsReference.RightLowerArm, false);
+                        }
+                            
                     }
                 }
             }

@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-public struct StrengthMultiplier : IComponentData
+public struct StrengthMultiplier : IComponentData, IEnableableComponent
 {
     public float ForceMultiplierOnCollision;
 
