@@ -10,8 +10,8 @@ public partial struct StunHitByExplosionSystem : ISystem
         foreach (var (stunned, entity) in SystemAPI.Query<RefRW<Stunned>>().WithAll<HitByExplosion>().WithOptions(EntityQueryOptions.IgnoreComponentEnabledState).WithEntityAccess())
         {
             SystemAPI.SetComponentEnabled<Stunned>(entity, true);
-            stunned.ValueRW.Duration = 20f;
-            stunned.ValueRW.CompleteStun = true;
+            stunned.ValueRW.ExtraTimeToWaitAfterMaxSpeedRemove = 2f;
+            stunned.ValueRW.Faint = true;
         }
     }
 }

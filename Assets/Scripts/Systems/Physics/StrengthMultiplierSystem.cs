@@ -24,25 +24,19 @@ public partial struct StrengthMultiplierSystem : ISystem
             }
         }
         
-        ChangeLinearDampingOnPunch.WithLookup? onPunch = null;
-        if (SystemAPI.TryGetSingleton<ChangeLinearDampingOnPunch>(out var onPunchSingleton))
-        {
-            onPunch = new ChangeLinearDampingOnPunch.WithLookup
-            {
-                ChangeLinearDampingOnPunch = onPunchSingleton,
-                DampingLookup = SystemAPI.GetComponentLookup<PhysicsDamping>(false),
-                StunnedLookup = SystemAPI.GetComponentLookup<Stunned>(false),
-                RagdollBodyReferenceLookup = SystemAPI.GetComponentLookup<BodyPartsReference>(true)
-            };
-        }
-
         var physicsWorld = SystemAPI.GetSingletonRW<PhysicsWorldSingleton>();
         state.Dependency = new ApplyStrengthMultiplierJob 
         {
             PhysicsWorld = physicsWorld.ValueRW.PhysicsWorld,
             StrengthMultiplierLookup = SystemAPI.GetComponentLookup<StrengthMultiplier>(true),
             RootLookup = SystemAPI.GetComponentLookup<StrengthMultiplier.Root>(true),
-            OnPunch = onPunch,
+            StunAndDamping = new StunAndDamping
+            {
+                DampingLookup = SystemAPI.GetComponentLookup<PhysicsDamping>(false),
+                StunnedLookup = SystemAPI.GetComponentLookup<Stunned>(false),
+                RagdollBodyReferenceLookup = SystemAPI.GetComponentLookup<BodyPartsReference>(true)
+            },
+            StunnerLookup = SystemAPI.GetComponentLookup<Stunner>(true),
             TimerLookup = SystemAPI.GetBufferLookup<StrengthMultiplier.Timer>(false)
         }.Schedule(SystemAPI.GetSingleton<SimulationSingleton>(), state.Dependency);
     }
@@ -53,7 +47,9 @@ public partial struct StrengthMultiplierSystem : ISystem
         public PhysicsWorld PhysicsWorld;
         [ReadOnly] public ComponentLookup<StrengthMultiplier> StrengthMultiplierLookup;
         [ReadOnly] public ComponentLookup<StrengthMultiplier.Root> RootLookup;
-        public ChangeLinearDampingOnPunch.WithLookup? OnPunch;
+        [ReadOnly] public ComponentLookup<Stunner> StunnerLookup;
+        
+        public StunAndDamping StunAndDamping;
 
         public BufferLookup<StrengthMultiplier.Timer> TimerLookup;
         
@@ -72,7 +68,7 @@ public partial struct StrengthMultiplierSystem : ISystem
 
                 var collisionDetails = collisionEvent.CalculateDetails(ref PhysicsWorld);
 
-                void Do(RefRO<StrengthMultiplier> strength, float impulseDirection, Entity entityHitter, Entity hitEntity, RefRO<StrengthMultiplier.Root> hitRoot, int hitBodyIndex, BufferLookup<StrengthMultiplier.Timer> timerLookup, ChangeLinearDampingOnPunch.WithLookup? onPunch, PhysicsWorld physicsWorld)
+                void Do(RefRO<StrengthMultiplier> strength, float impulseDirection, Entity entityHitter, Entity hitEntity, RefRO<StrengthMultiplier.Root> hitRoot, int hitBodyIndex, BufferLookup<StrengthMultiplier.Timer> timerLookup, StunAndDamping stunAndDamping, ComponentLookup<Stunner> stunnerLookup, PhysicsWorld physicsWorld)
                 {
                     if (strength.IsValid)
                     {
@@ -88,8 +84,8 @@ public partial struct StrengthMultiplierSystem : ISystem
                                 });
                             
                                 var impulse = collisionEvent.Normal * strength.ValueRO.ForceMultiplierOnCollision * impulseDirection;
-                                if (onPunch.HasValue)
-                                    onPunch.Value.ApplyIfRequired(hitRoot);
+                                if(stunnerLookup.TryGetComponent(entityHitter, out var stunner))
+                                    stunAndDamping.Apply(timerEntity, stunner.NewLinearDamping, stunner.Stun);
 
                                 physicsWorld.ApplyImpulse(hitBodyIndex, impulse, collisionDetails.AverageContactPointPosition);
                             }
@@ -97,8 +93,8 @@ public partial struct StrengthMultiplierSystem : ISystem
                     }
                 }
                 
-                Do(strengthA, -1, collisionEvent.EntityA, collisionEvent.EntityB, rootB, collisionEvent.BodyIndexB, TimerLookup, OnPunch, PhysicsWorld);
-                Do(strengthB, 1, collisionEvent.EntityB, collisionEvent.EntityA, rootA, collisionEvent.BodyIndexA, TimerLookup, OnPunch, PhysicsWorld);
+                Do(strengthA, -1, collisionEvent.EntityA, collisionEvent.EntityB, rootB, collisionEvent.BodyIndexB, TimerLookup, StunAndDamping, StunnerLookup, PhysicsWorld);
+                Do(strengthB, 1, collisionEvent.EntityB, collisionEvent.EntityA, rootA, collisionEvent.BodyIndexA, TimerLookup, StunAndDamping, StunnerLookup, PhysicsWorld);
             }
         }
     }

@@ -150,6 +150,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8325759988785200628}
+    - targetCorrespondingSourceObject: {fileID: 8719153411489886978, guid: 003d8ba4a8f377347a6db4a0b5e7c1d0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1641692487208664917}
   m_SourcePrefab: {fileID: 100100000, guid: 003d8ba4a8f377347a6db4a0b5e7c1d0, type: 3}
 --- !u!1 &4569600922083939946 stripped
 GameObject:
@@ -194,6 +198,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _forceMultiplierOnCollision: 6
+  _initiallyActive: 0
+--- !u!114 &1641692487208664917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6255667350995900867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab5b10b0bae39147bf72bde6d54ed0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _newLinearDamping: 1
+  _stun:
+    ExtraTimeToWaitAfterMaxSpeedRemove: 1.5
+    Faint: 1
 --- !u!1 &8725764045597569153 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6253278525924842048, guid: 003d8ba4a8f377347a6db4a0b5e7c1d0,
