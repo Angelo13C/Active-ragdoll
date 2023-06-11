@@ -9,6 +9,7 @@ using UnityEditor;
 public class StrengthMultiplierAuthoring : MonoBehaviour
 {
 	[SerializeField] [Min(0)] private float _forceMultiplierOnCollision = 1000f;
+	public float ForceMultiplierOnCollision => _forceMultiplierOnCollision;
 
 	[SerializeField] private bool _initiallyActive = false;
 
