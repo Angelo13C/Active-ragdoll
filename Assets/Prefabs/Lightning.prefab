@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2703845347488569639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3926589926462530336}
+  - component: {fileID: 3938728350610884244}
+  - component: {fileID: 6742066309611289450}
+  - component: {fileID: 8863278465381034775}
+  m_Layer: 0
+  m_Name: Lightning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3926589926462530336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703845347488569639}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 150, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3938728350610884244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703845347488569639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa169cedd53637a47938704bd9a44ee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lineWidth: 1
+  _displayPercentage: 0
+  _material: {fileID: 2100000, guid: c967de2c05cf2a344b4b68edf96865c9, type: 2}
+  _points: []
+--- !u!114 &6742066309611289450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703845347488569639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca8c7d000e3b914caa61af00b872137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speedInPointsPerSecond: 250
+  _triggerOnCreation: 1
+  _startTimeToDisappear: 0.5
+  _disappearDuration: 0.2
+  _height: 150
+  _maxSpreadWidth: 1.5
+  _segmentLengthRange: {x: 1.5, y: 4}
+  _subBoltPrefab: {fileID: 6157836259188262090, guid: 09d146764e38038438cd5814a1601f2e,
+    type: 3}
+  _subBoltsCountRange: {x: 5, y: 9}
+  _subBoltsHeightRange: {x: 20, y: 50}
+  _subBoltsWidthSpreadRange: {x: 0.8, y: 1.4}
+  _subBoltsSegmentLengthRange: {x: 1, y: 2}
+--- !u!114 &8863278465381034775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703845347488569639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9d2bd89a4696d4cbd19c1ca192522a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _force: 100
+  _radius: 7
+  _upwardsModifier: 0.5
+  _hittablePhysicsTags:
+    Category00: 1
+    Category01: 0
+    Category02: 0
+    Category03: 0
+    Category04: 1
+    Category05: 0
+    Category06: 0
+    Category07: 0
+    Category08: 0
+    Category09: 0
+    Category10: 0
+    Category11: 0
+    Category12: 0
+    Category13: 0
+    Category14: 0
+    Category15: 0
+    Category16: 0
+    Category17: 0
+    Category18: 0
+    Category19: 0
+    Category20: 0
+    Category21: 0
+    Category22: 0
+    Category23: 0
+    Category24: 0
+    Category25: 0
+    Category26: 0
+    Category27: 0
+    Category28: 0
+    Category29: 0
+    Category30: 0
+    Category31: 0
+  _destroyOnExplosion: 0
+  _explosionPrefab: {fileID: 1206005374969150202, guid: 5fd25bfc372fabc4f9f081d2cf6fb5c6,
+    type: 3}
