@@ -50,7 +50,7 @@ public struct LightningSubBoltsGenerator : IComponentData
             subBoltsTransforms[i] = float4x4.TRS(localPosition, localRotation, new float3(1, 1, 1));
         }
 
-        return new Bolts(points, subBoltsIndices, subBoltsTransforms);
+        return new Bolts(points.AsArray(), subBoltsIndices, subBoltsTransforms);
     }
 
     public struct Bolts

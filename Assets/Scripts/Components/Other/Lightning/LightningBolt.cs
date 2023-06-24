@@ -28,7 +28,7 @@ public struct LightningBolt : IComponentData
             points.Add(new float3(x, y, z));
         }
         
-        return points;
+        return points.AsArray();
     }
 }
 
