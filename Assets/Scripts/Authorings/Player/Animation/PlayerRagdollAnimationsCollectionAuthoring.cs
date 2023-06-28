@@ -6,6 +6,7 @@ public class PlayerRagdollAnimationsCollectionAuthoring : MonoBehaviour
 	[SerializeField] private PlayerRagdollAnimationSO _punch;
 	[SerializeField] private PlayerRagdollAnimationSO _bowShot;
 	[SerializeField] private PlayerRagdollAnimationSO _throwBone;
+	[SerializeField] private PlayerRagdollAnimationSO _drinkPotion;
 
 	class Baker : Baker<PlayerRagdollAnimationsCollectionAuthoring>
 	{
@@ -15,7 +16,8 @@ public class PlayerRagdollAnimationsCollectionAuthoring : MonoBehaviour
 			{
 				Punch = authoring._punch.ToBlob(),
 				BowShot = authoring._bowShot.ToBlob(),
-				ThrowBone = authoring._throwBone.ToBlob()
+				ThrowBone = authoring._throwBone.ToBlob(),
+				DrinkPotion = authoring._drinkPotion.ToBlob()
 			};
 			AddComponent(GetEntity(TransformUsageFlags.None), animationsCollection);
 		}
