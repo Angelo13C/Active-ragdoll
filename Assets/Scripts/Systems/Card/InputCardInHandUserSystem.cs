@@ -9,14 +9,14 @@ public partial struct InputCardInHandUserSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var inputCardInHandUser in SystemAPI.Query<RefRW<InputCardInHandUser>>())
+        foreach (var (inputCardInHandUser, cardInHandUser) in SystemAPI.Query<InputCardInHandUser, RefRW<CardInHandUser>>())
         {
-            if (Input.GetKeyDown(inputCardInHandUser.ValueRO.LeftCardKeyCode))
-                inputCardInHandUser.ValueRW.TryingToUse = InputCardInHandUser.CardAction.Left;
-            else if (Input.GetKeyDown(inputCardInHandUser.ValueRO.RightCardKeyCode))
-                inputCardInHandUser.ValueRW.TryingToUse = InputCardInHandUser.CardAction.Right;
+            if (Input.GetKeyDown(inputCardInHandUser.LeftCardKeyCode))
+                cardInHandUser.ValueRW.TryingToUse = CardInHandUser.CardAction.Left;
+            else if (Input.GetKeyDown(inputCardInHandUser.RightCardKeyCode))
+                cardInHandUser.ValueRW.TryingToUse = CardInHandUser.CardAction.Right;
             else
-                inputCardInHandUser.ValueRW.TryingToUse = InputCardInHandUser.CardAction.None;
+                cardInHandUser.ValueRW.TryingToUse = CardInHandUser.CardAction.None;
         }
     }
 }

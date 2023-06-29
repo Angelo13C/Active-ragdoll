@@ -5,7 +5,10 @@ public struct InputCardInHandUser : IComponentData
 {
     public KeyCode LeftCardKeyCode;
     public KeyCode RightCardKeyCode;
+}
 
+public struct CardInHandUser : IComponentData
+{
     public CardAction TryingToUse;
     public enum CardAction
     {
@@ -20,11 +23,11 @@ public struct CurrentlyUsingCards : IComponentData
     public Entity LeftCard;
     public Entity RightCard;
 
-    public Entity Get(InputCardInHandUser.CardAction cardAction)
+    public Entity Get(CardInHandUser.CardAction cardAction)
     {
-        if (cardAction == InputCardInHandUser.CardAction.None)
+        if (cardAction == CardInHandUser.CardAction.None)
             return Entity.Null;
-        return cardAction == InputCardInHandUser.CardAction.Left ? LeftCard : RightCard;
+        return cardAction == CardInHandUser.CardAction.Left ? LeftCard : RightCard;
     }
 }
 
@@ -51,10 +54,10 @@ public struct CardUsedBy : IComponentData
 
 public static class CardActionExtensions
 {
-    public static int ToCardIndex(this InputCardInHandUser.CardAction cardAction)
+    public static int ToCardIndex(this CardInHandUser.CardAction cardAction)
     {
-        if (cardAction == InputCardInHandUser.CardAction.None)
+        if (cardAction == CardInHandUser.CardAction.None)
             return -1;
-        return cardAction == InputCardInHandUser.CardAction.Left ? 0 : 1;
+        return cardAction == CardInHandUser.CardAction.Left ? 0 : 1;
     }
 }

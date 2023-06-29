@@ -10,13 +10,20 @@ public class InputCardInHandUserAuthoring : MonoBehaviour
 	{
 		public override void Bake(InputCardInHandUserAuthoring authoring)
 		{
+			var entity = GetEntity(authoring, TransformUsageFlags.None);
+			
 			var inputCardInHandUser = new InputCardInHandUser
 			{
 				LeftCardKeyCode = authoring._leftCardKeyCode,
-				RightCardKeyCode = authoring._rightCardKeyCode,
-				TryingToUse = InputCardInHandUser.CardAction.None
+				RightCardKeyCode = authoring._rightCardKeyCode
 			};
-			AddComponent(GetEntity(authoring, TransformUsageFlags.None), inputCardInHandUser);
+			AddComponent(entity, inputCardInHandUser);
+			
+			var cardInHandUser = new CardInHandUser
+			{
+				TryingToUse = CardInHandUser.CardAction.None
+			};
+			AddComponent(entity, cardInHandUser);
 		}
 	}
 }

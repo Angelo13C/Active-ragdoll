@@ -11,22 +11,22 @@ public partial struct CardInHandUserSystem : ISystem
     {
         var entityCommandBuffer = new EntityCommandBuffer(Allocator.Temp);
         
-        foreach (var (deck, hand, inputCardInHandUser, currentlyUsingCards, entity) in SystemAPI.Query<DynamicBuffer<CardInDeck>, Hand, InputCardInHandUser, RefRW<CurrentlyUsingCards>>().WithEntityAccess())
+        foreach (var (deck, hand, cardInHandUser, currentlyUsingCards, entity) in SystemAPI.Query<DynamicBuffer<CardInDeck>, Hand, CardInHandUser, RefRW<CurrentlyUsingCards>>().WithEntityAccess())
         {
-            var cardToUse = inputCardInHandUser.TryingToUse.ToCardIndex();
+            var cardToUse = cardInHandUser.TryingToUse.ToCardIndex();
             if (cardToUse != -1)
             {
                 var (usedCardPrefab, lastUse) = deck.UseCardAndEventuallyPutAtEnd(cardToUse, hand);
                 if (usedCardPrefab != Entity.Null)
                 {
                     var lastUseType = lastUse ? CardUsedBy.Use.Last : CardUsedBy.Use.None;
-                    var currentlyUsedCard = currentlyUsingCards.ValueRO.Get(inputCardInHandUser.TryingToUse);
+                    var currentlyUsedCard = currentlyUsingCards.ValueRO.Get(cardInHandUser.TryingToUse);
                     if (currentlyUsedCard == Entity.Null)
                     {
                         var usedCard = entityCommandBuffer.Instantiate(usedCardPrefab);
                         entityCommandBuffer.AddComponent(usedCard, new CardUsedBy(entity, CardUsedBy.Use.First | lastUseType));
 
-                        if (inputCardInHandUser.TryingToUse == InputCardInHandUser.CardAction.Left)
+                        if (cardInHandUser.TryingToUse == CardInHandUser.CardAction.Left)
                             currentlyUsingCards.ValueRW.LeftCard = usedCard;
                         else
                             currentlyUsingCards.ValueRW.RightCard = usedCard;
@@ -36,7 +36,7 @@ public partial struct CardInHandUserSystem : ISystem
 
                     if (lastUse)
                     {
-                        if (inputCardInHandUser.TryingToUse == InputCardInHandUser.CardAction.Left)
+                        if (cardInHandUser.TryingToUse == CardInHandUser.CardAction.Left)
                             currentlyUsingCards.ValueRW.LeftCard = Entity.Null;
                         else
                             currentlyUsingCards.ValueRW.RightCard = Entity.Null;

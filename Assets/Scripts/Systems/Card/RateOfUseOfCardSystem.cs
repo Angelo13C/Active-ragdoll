@@ -9,13 +9,13 @@ public partial struct CheckRateOfUseOfCardSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var deltaTime = SystemAPI.Time.DeltaTime;
-        foreach (var (inputCardInHandUser, rate) in SystemAPI.Query<RefRW<InputCardInHandUser>, RefRW<RateOfUseOfCard>>())
+        foreach (var (cardInHandUser, rate) in SystemAPI.Query<RefRW<CardInHandUser>, RefRW<RateOfUseOfCard>>())
         {
             rate.ValueRW.CurrentUseTimer -= deltaTime;
-            if (inputCardInHandUser.ValueRO.TryingToUse != InputCardInHandUser.CardAction.None)
+            if (cardInHandUser.ValueRO.TryingToUse != CardInHandUser.CardAction.None)
             {
                 if (!rate.ValueRO.CanUse)
-                    inputCardInHandUser.ValueRW.TryingToUse = InputCardInHandUser.CardAction.None;
+                    cardInHandUser.ValueRW.TryingToUse = CardInHandUser.CardAction.None;
             }
         }
     }
@@ -28,9 +28,9 @@ public partial struct ResetRateOfUseOfCardSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (var (inputCardInHandUser, rate) in SystemAPI.Query<InputCardInHandUser, RefRW<RateOfUseOfCard>>())
+        foreach (var (cardInHandUser, rate) in SystemAPI.Query<CardInHandUser, RefRW<RateOfUseOfCard>>())
         {
-            if (inputCardInHandUser.TryingToUse != InputCardInHandUser.CardAction.None)
+            if (cardInHandUser.TryingToUse != CardInHandUser.CardAction.None)
             {
                 rate.ValueRW.ResetTimer();
             }

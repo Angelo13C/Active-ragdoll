@@ -42,8 +42,9 @@ public class HandUI : MonoBehaviour
     {
         var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         var handQuery = entityManager.CreateEntityQuery(
-            ComponentType.ReadOnly<Hand>(), ComponentType.ReadOnly<CardInDeck>(), ComponentType.ReadOnly<InputCardInHandUser>());;
-        if(handQuery.TryGetSingleton<Hand>(out var hand) && handQuery.TryGetSingletonBuffer<CardInDeck>(out var deck) && handQuery.TryGetSingleton<InputCardInHandUser>(out var inputCardInHandUser))
+            ComponentType.ReadOnly<Hand>(), ComponentType.ReadOnly<CardInDeck>(), ComponentType.ReadOnly<InputCardInHandUser>(),
+            ComponentType.ReadOnly<CardInHandUser>());;
+        if(handQuery.TryGetSingleton<Hand>(out var hand) && handQuery.TryGetSingletonBuffer<CardInDeck>(out var deck) && handQuery.TryGetSingleton<CardInHandUser>(out var cardInHandUser))
         {
             var cardsInHand = hand.GetCardsInHand(deck);
             for (var i = 0; i < _cards.Length && i < cardsInHand.Length; i++)
@@ -69,9 +70,9 @@ public class HandUI : MonoBehaviour
                     _cards[i].LeftUsesText.text = "x" + cardsInHand[i].LeftUseCount;
             }
             
-            if (inputCardInHandUser.TryingToUse != InputCardInHandUser.CardAction.None)
+            if (cardInHandUser.TryingToUse != CardInHandUser.CardAction.None)
             {
-                var usedCardIndex = inputCardInHandUser.TryingToUse == InputCardInHandUser.CardAction.Left ? 0 : 1;
+                var usedCardIndex = cardInHandUser.TryingToUse == CardInHandUser.CardAction.Left ? 0 : 1;
                 var leftUsesOfUsedCardText = _cards[usedCardIndex].LeftUsesText;
                 LeanTween.scale(leftUsesOfUsedCardText.rectTransform, _leftUsesTextTweenSize * Vector3.one, _leftUsesTextTweenDuration)
                     .setEase(_leftUsesTextTweenEase).setLoopPingPong(1);
