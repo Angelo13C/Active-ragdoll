@@ -641,6 +641,7 @@ MonoBehaviour:
   _punch: {fileID: 11400000, guid: 81afc757bee650b4eb0a626013c421d1, type: 2}
   _bowShot: {fileID: 11400000, guid: 64b657678c3bde441bee4a17997e8d31, type: 2}
   _throwBone: {fileID: 11400000, guid: 9c1ee3ba4a3cad747bf32504e80f7133, type: 2}
+  _drinkPotion: {fileID: 11400000, guid: 03228528664afea45b9641c6120ee5b4, type: 2}
 --- !u!4 &940852786
 Transform:
   m_ObjectHideFlags: 0
@@ -865,7 +866,7 @@ PrefabInstance:
     - target: {fileID: 4831558362839156217, guid: cc5917ad5df64a84bad59a22ee20a27d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.06
+      value: -15.56
       objectReference: {fileID: 0}
     - target: {fileID: 4831558362839156217, guid: cc5917ad5df64a84bad59a22ee20a27d,
         type: 3}
@@ -875,7 +876,7 @@ PrefabInstance:
     - target: {fileID: 4831558362839156217, guid: cc5917ad5df64a84bad59a22ee20a27d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25.2
+      value: 15.59
       objectReference: {fileID: 0}
     - target: {fileID: 4831558362839156217, guid: cc5917ad5df64a84bad59a22ee20a27d,
         type: 3}
@@ -988,7 +989,7 @@ PrefabInstance:
     - target: {fileID: 3711426355013463143, guid: 988d88ab7e3cf804799d67412b66f071,
         type: 3}
       propertyPath: PerpendicularAxisLocal.z
-      value: 0.00000014901207
+      value: 0.00000014901215
       objectReference: {fileID: 0}
     - target: {fileID: 3711426355013463143, guid: 988d88ab7e3cf804799d67412b66f071,
         type: 3}
@@ -998,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 3711426355013463143, guid: 988d88ab7e3cf804799d67412b66f071,
         type: 3}
       propertyPath: PerpendicularAxisInConnectedEntity.z
-      value: 0.00000014901207
+      value: 0.00000014901215
       objectReference: {fileID: 0}
     - target: {fileID: 3836094861740324739, guid: 988d88ab7e3cf804799d67412b66f071,
         type: 3}
@@ -1096,7 +1097,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _initialCards.Array.data[0]
       value: 
-      objectReference: {fileID: 3163973902102641372, guid: 3be8897b75f98e540a478cdb3169e0b8,
+      objectReference: {fileID: 4379083615161157203, guid: ff49484cf6ee27749997d513540d73d6,
         type: 3}
     - target: {fileID: 6548646380334660135, guid: 988d88ab7e3cf804799d67412b66f071,
         type: 3}
