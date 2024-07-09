@@ -45,7 +45,7 @@ public static class DeckExtensions
     
     public static void PutCardAtEnd(this Deck deck, int cardIndex, Hand hand)
     {
-        if (deck.Length < hand.MaxCardsCount)
+        if (deck.Length <= hand.MaxCardsCount)
             return;
 
         var newCard = deck[hand.MaxCardsCount];

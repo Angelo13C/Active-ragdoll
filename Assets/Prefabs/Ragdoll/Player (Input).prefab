@@ -134,6 +134,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2360372832394172873}
+    - targetCorrespondingSourceObject: {fileID: 6253278525924842048, guid: 003d8ba4a8f377347a6db4a0b5e7c1d0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5964981037896206084}
     - targetCorrespondingSourceObject: {fileID: 1205350929910447275, guid: 003d8ba4a8f377347a6db4a0b5e7c1d0,
         type: 3}
       insertIndex: -1
@@ -261,6 +265,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftCardKeyCode: 323
   _rightCardKeyCode: 324
+--- !u!114 &5964981037896206084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8725764045597569153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c0ffa5b2fc83764c8c2f6a88b18e68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minDelayBetweenUseOfCards: 1
 --- !u!1 &9049113665319488299 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5928099902900117994, guid: 003d8ba4a8f377347a6db4a0b5e7c1d0,
